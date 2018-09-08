@@ -150,6 +150,7 @@
   .normalCards .card > em:hover
   {
     transform: scale(1.2); /* 放大1.2倍 */
+    background: rgba(0, 0, 0, 0);
   }
 
   .normalCards li em {

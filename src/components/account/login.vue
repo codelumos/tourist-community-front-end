@@ -13,7 +13,7 @@
       </div>
       <div class="form-button">
         <input type="submit" class="form-submit">
-        <router-link to="/index" class="form-return"><span>返回</span></router-link>
+        <router-link to="/index" class="form-return"><span>返回首页</span></router-link>
       </div>
     </div>
   </form>

@@ -3,7 +3,7 @@
     <AutoComplete
       v-model="value"
       icon="ios-search"
-      placeholder="input here"
+      placeholder="搜索感兴趣的话题/目的地"
       style="width:300px">
       <div class="demo-auto-complete-item" v-for="item in data">
         <div class="demo-auto-complete-group">
@@ -15,13 +15,16 @@
           <span class="demo-auto-complete-count">{{ option.count }} 人关注</span>
         </Option>
       </div>
-      <a href="https://www.google.com/search?q=iView" target="_blank" class="demo-auto-complete-more">查看所有结果</a>
+      <div class="searchButton">
+        <a href="javascript:void(0)" class="demo-auto-complete-more" @click="search()">搜索</a>
+      </div>
+
     </AutoComplete>
   </div>
 </template>
 <script>
   export default {
-    data () {555
+    data () {
       return {
         value: '',
         data: [
@@ -67,6 +70,11 @@
           }
         ]
       }
+    },
+    methods:{
+      search(){
+        alert(this.value);
+      }
     }
   }
 </script>
@@ -99,6 +107,7 @@
     margin: 0 auto;
     padding: 4px;
     text-align: center;
-    font-size: 12px;
+    font-size: 18px;
+    color: #000;
   }
 </style>

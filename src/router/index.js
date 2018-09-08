@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import index from '../components/index.vue';
 import account from '../components/account/account';
 import editor from '../components/editor/editor';
+import blog from '../components/blog/page';
 
 import login from '../components/account/login';
 import register from '../components/account/register';
@@ -42,6 +43,13 @@ export default new Router({
       path: '/editor',
       name: 'editor',
       component: editor
+    },
+    {
+      path: '/blog',
+      name :'blog',
+      component: blog
     }
   ]
 });
+
+

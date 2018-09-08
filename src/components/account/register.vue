@@ -6,9 +6,6 @@
       <input type="text" class="form-input" name="username" placeholder="用户名">
       <input type="password" class="form-input" name="password" placeholder="密码">
       <input type="password" class="form-input" name="password" placeholder="记住密码">
-      <div class="form-group">
-        <label for="remember"><input type="checkbox" id="remember"> 记住我？</label>
-      </div>
       <div class="form-button">
         <input type="submit" class="form-submit">
         <router-link to="/account/login" class="form-return"><span>进行登录</span></router-link>
