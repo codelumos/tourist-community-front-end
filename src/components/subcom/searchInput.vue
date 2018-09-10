@@ -73,7 +73,9 @@
     },
     methods:{
       search(){
-        alert(this.value);
+        this.$router.push({
+          path:"/blogList"
+        });
       }
     }
   }

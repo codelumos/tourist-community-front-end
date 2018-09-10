@@ -5,16 +5,16 @@
       <header>
         <nav>
           <div class="logo">
-            <a href="#">
+            <router-link to="/account">
               一把健
-            </a>
+            </router-link>
           </div>
           <ul>
             <li><router-link to="/index" class="active">首页</router-link></li>
             <li><router-link to="/editor">写博客</router-link></li>
-            <li><router-link to="/account/login">登录</router-link></li>
+            <li><router-link to="/accountForm/login">登录</router-link></li>
             <li>
-              <router-link to="/account/register">
+              <router-link to="/accountForm/register">
                 注册&nbsp;
               </router-link>
             </li>
@@ -49,11 +49,8 @@
 
   nav {
     height: 50px;
-    /*background: -webkit-linear-gradient(left top, #0396FF,#ABDCFF); !* Safari 5.1 - 6.0 *!*/
-    /*background: -o-linear-gradient(bottom right, #0396FF,#ABDCFF); !* Opera 11.1 - 12.0 *!*/
-    /*background: -moz-linear-gradient(bottom right,  #0396FF,#ABDCFF); !* Firefox 3.6 - 15 *!*/
-    /*background: linear-gradient(to bottom right,  #0396FF,#ABDCFF); !* 标准的语法 *!*/
-    background: #2d8cf0;
+    /*background: #2d8cf0;*/
+    background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
     z-index: 3;
     position: relative;
     top: 0;

@@ -34,10 +34,10 @@
 <script>
   // 导入 子组件
   import headNav from '../subcom/headNav-white.vue';
-  import board from './board';
+  import board from './subcom/board';
   import footNav from '../subcom/footNav';
-  import userDesc from './userDesc';
-  import blog from './blog';
+  import userDesc from './subcom/userDesc';
+  import blog from './subcom/blog';
   import backTop from '../subcom/backTop';
 
   export default {

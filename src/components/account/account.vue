@@ -1,82 +1,124 @@
 <template>
-  <div class="tmpl" :style="{height: myHeight}">
-    <div class="background" :style="{height: myHeight}">
+  <!--个人中心界面-->
+  <div class="tmpl">
+    <headNav></headNav>
+    <div class="account-background">
+      <div class="account-avatar">
+        <img v-if="account.avatar" :src="account.avatar" alt="头像">
+        <img v-else src="../../../static/img/黑子.jpg" alt="头像">
+      </div>
+      <div class="account-name">
+        <input type="text" v-model="account.name" maxlength="20">
+        <div>
+          <Icon type="md-happy" />
+          <span>账号:12348468</span>
+        </div>
+      </div>
     </div>
+    <infoForm></infoForm>
+    <footNav></footNav>
+    <backTop></backTop>
 
-    <headnav></headnav>
-
-    <div class="accountForm">
-      <Row>
-        <Col span="5" offset="4">
-          <div>
-            <transition :name="transitionName">
-              <router-view class='router'></router-view>
-            </transition>
-
-          </div>
-        </Col>
-      </Row>
-    </div>
   </div>
-
 </template>
+
 <script>
-  import headnav from '../subcom/headNav';
+  import headNav from '../subcom/headNav-white';
+  import footNav from '../subcom/footNav';
+  import backTop from '../subcom/backTop';
+
+  import infoForm from './subcom/infoForm';
 
   export default {
-    data(){
+    name: "account",
+    data () {
       return {
-        myHeight: (document.documentElement.clientHeight+'px'),
-        transitionName: 'slide-left'
-      };
+        address: [],
+        account:{
+          name: '一把健',
+          id:'',
+          password: '123456',
+          avatar: '',
+          sex: '男',
+          birthday: '1998年5月7',
+          home: [],
+          live: []
+        }
+      }
     },
     methods:{
+      initAddress(){
+
+        var url = '../../../static/data/address.json';
+
+        this.$http.get(url).then(function (response) {
+          alert(response.data);
+           this.address = response.data;
+        }).catch(function (response) {
+          alert(response);
+        });
+
+        console.log(this.address);
+      },
+      submit(){
+        alert("提交");
+      },
+
 
     },
     created(){
+      // 将用户信息查出
 
+      // this.initAddress();
     },
-    components:{
-      headnav
-    }
+    components: {
+      headNav,
+      footNav,
+      backTop,
 
+      infoForm
+    }
   }
 </script>
 
 <style scoped>
-  .tmpl
-  {
-    position: relative;
-  }
-  .background
-  {
-    background: url("../../../static/img/login-background.jpg");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  div.accountForm
-  {
+  .account-background {
+    /*position: fixed;*/
+    overflow: hidden;
     width: 100%;
-    position: absolute;
-    top: 130px;
+    height: 380px;
+    background-image: linear-gradient(135deg, #5EFCE8 10%, #736EFE 100%);
+  }
+  .account-avatar>img{
+    display: block;
+    width: 180px;
+    height: 180px;
+    border-radius: 100%;
+    margin: 80px auto;
+    margin-bottom: 10px;
+  }
+  .account-name>input{
+    display: block;
+    margin: 0 auto;
+    border: none;
+    font-size: 30px;
+    font-weight: 300;
+    border: none;
+    box-shadow: none;
+    border-radius: 0px;
+    background: transparent;
+    outline: none;
+    text-align: center;
+  }
+  .account-name
+  {
+    text-align: center;
+  }
+  .account-name>div
+  {
+    margin-top: 20px;
+    font-size: 15px;
   }
 
-  .router {
-    position: absolute;
-    width: 100%;
-    transition: all .5s;
-  }
-
-  .slide-left-enter,
-  .slide-right-leave-active {
-    opacity: 0;
-  }
-
-  .slide-left-leave-active,
-  .slide-right-enter {
-    opacity: 0;
-  }
 
 </style>

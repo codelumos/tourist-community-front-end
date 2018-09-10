@@ -23,10 +23,10 @@ import '../static/css/site.css';
 Vue.config.productionTip = false;
 
 // 导入 axios 和 vue-axios 做ajax
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
-Vue.use(VueAxios, axios)
+Vue.use(VueAxios, axios);
 
 /* eslint-disable no-new */
 new Vue({
@@ -39,4 +39,4 @@ new Vue({
 // 跳转后返回顶部
 router.afterEach((to,from,next) => {
   window.scrollTo(0,0);
-})
+});

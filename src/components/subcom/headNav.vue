@@ -5,16 +5,16 @@
       <header>
         <nav>
           <div class="logo">
-            <a href="#">
+            <router-link to="/account">
               一把健
-            </a>
+            </router-link>
           </div>
           <ul>
             <li><router-link to="/index" class="active">首页</router-link></li>
             <li><router-link to="/editor">写博客</router-link></li>
-            <li><router-link to="/account/login">登录</router-link></li>
+            <li><router-link to="/accountForm/login">登录</router-link></li>
             <li>
-              <router-link to="/account/register">
+              <router-link to="/accountForm/register">
                 注册&nbsp;
               </router-link>
             </li>
