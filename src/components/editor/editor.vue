@@ -8,6 +8,22 @@
     <div class='tinymce'>
       <h1>Blog</h1><br>
       <input id="title" placeholder="请输入标题" /><br><br>
+      <Row class="account-group">
+        <Col span="1">
+        <label>时间：</label>
+        </Col>
+        <Col span="4">
+        <Input type="date" placeholder="时间" />
+        </Col>
+        <Col span="1" offset="3">
+        <label>地点：</label>
+        </Col>
+        <Col span="4">
+        <Cascader :data="address" ></Cascader>
+        </Col>
+      </Row>
+
+
       <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
       <br>
       <Button class="button" :size="buttonSize" type="primary">发表</Button>
@@ -60,8 +76,26 @@
             'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
           branding: false
         },
-        buttonSize: 'large'
+        buttonSize: 'large',
+        address: []
       }
+    },
+    methods:{
+      initAddress(){
+        var that = this;
+        var url = '../../static/data/address.json';
+
+        this.$http.get(url).then(function (response) {
+
+          that.address = response.data;
+        }).catch(function (error) {
+          that.$Message.warning(error);
+        });
+
+      },
+    },
+    created(){
+      this.initAddress();
     },
     mounted() {
       tinymce.init({})
@@ -93,6 +127,15 @@
   .button
   {
     margin-right: 30px;
+  }
+  .account-group
+  {
+    margin-bottom: 20px;
+  }
+  .account-group label
+  {
+    font-size: 15px;
+    line-height: 35px;
   }
 
 </style>

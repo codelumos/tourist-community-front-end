@@ -25,13 +25,17 @@ Vue.config.productionTip = false;
 // 导入 axios 和 vue-axios 做ajax
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-
 Vue.use(VueAxios, axios);
+
+// 导入 vuex store模式
+import store from './store';
+
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 });
@@ -40,3 +44,5 @@ new Vue({
 router.afterEach((to,from,next) => {
   window.scrollTo(0,0);
 });
+
+

@@ -16,6 +16,10 @@ import register from '../components/account/subcom/register';
 import account from '../components/account/account';
 import otherAccount from '../components/account/otherAccount';
 
+// 拼途
+import travel from '../components/mate/mate';
+import travelList from '../components/mate/subcom/travelList';
+
 Vue.use(Router);
 
 export default new Router({
@@ -71,6 +75,18 @@ export default new Router({
       path: '/otherAccount',
       name: 'otherAccount',
       component: otherAccount
+    },
+    {
+      path: '/travel',
+      name: 'travel',
+      component: travel,
+      children:[
+        {
+          path: 'travelList',
+          name: 'travelList',
+          component: travelList
+        }
+      ]
     }
   ]
 });

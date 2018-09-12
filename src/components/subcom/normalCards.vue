@@ -29,7 +29,7 @@
 
       </li>
       <li>
-        <a class="card" href="javascript:void(0)">
+        <router-link class="card" to="/travel">
           <img src="http://img1.lotour.net/Inspiration/2018/0830/20180830105205655530151_295.jpg" alt="">
           <em>
                 <span>
@@ -38,7 +38,7 @@
                   “小众秘境”
                 </span>
           </em>
-        </a>
+        </router-link>
         <h5>
           <a href="">
             海坨山 | 骑行山林，总有刺

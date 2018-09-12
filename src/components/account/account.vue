@@ -4,14 +4,14 @@
     <headNav></headNav>
     <div class="account-background">
       <div class="account-avatar">
-        <img v-if="account.avatar" :src="account.avatar" alt="头像">
+        <img v-if="accountInfo.path" :src="accountInfo.path" alt="头像">
         <img v-else src="../../../static/img/黑子.jpg" alt="头像">
       </div>
       <div class="account-name">
-        <input type="text" v-model="account.name" maxlength="20">
+        <input type="text" v-model="accountInfo.name" maxlength="20">
         <div>
           <Icon type="md-happy" />
-          <span>账号:12348468</span>
+          <span>账号:{{accountInfo.userId}}</span>
         </div>
       </div>
     </div>
@@ -26,44 +26,26 @@
   import headNav from '../subcom/headNav-white';
   import footNav from '../subcom/footNav';
   import backTop from '../subcom/backTop';
-
   import infoForm from './subcom/infoForm';
+
+  import {mapState} from 'vuex';
+
 
   export default {
     name: "account",
     data () {
       return {
-        address: [],
-        account:{
-          name: '一把健',
-          id:'',
-          password: '123456',
-          avatar: '',
-          sex: '男',
-          birthday: '1998年5月7',
-          home: [],
-          live: []
-        }
+
       }
     },
+    computed:{
+      ...mapState({
+        accountInfo: state => {
+          return state.account.accountInfo;
+        }
+      })
+    },
     methods:{
-      initAddress(){
-
-        var url = '../../../static/data/address.json';
-
-        this.$http.get(url).then(function (response) {
-          alert(response.data);
-           this.address = response.data;
-        }).catch(function (response) {
-          alert(response);
-        });
-
-        console.log(this.address);
-      },
-      submit(){
-        alert("提交");
-      },
-
 
     },
     created(){

@@ -1,0 +1,19 @@
+{
+  "status": 0,
+  "message": [
+    {
+      "userId": "liu",
+      "name": "liu",
+      "path": "pic",
+      "sex": "m",
+      "homelp": [1,1],
+      "homesp": "郑州",
+      "livelp": "湖南",
+      "livesp": "长沙",
+      "birthday": "1998-10-10",
+      "tag1": "1",
+      "tag2": "2",
+      "tag3": "3"
+    }
+  ]
+}

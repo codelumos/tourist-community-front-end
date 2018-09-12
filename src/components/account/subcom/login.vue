@@ -3,13 +3,15 @@
     <div class="form-body">
 
       <span>驴友，请登录</span>
-      <input type="text" class="form-input" name="username" placeholder="账号">
-      <input type="password" class="form-input" name="password" placeholder="密码">
+      <input type="text" class="form-input" name="username" placeholder="账号" v-model="userId">
+      <input type="password" class="form-input" name="password" placeholder="密码" v-model="password">
       <div class="form-group">
         <label for="remember"><input type="checkbox" id="remember"> 记住我？</label>
       </div>
       <div class="form-group">
-        <p>还没成为网上驴友？ <router-link to="/accountForm/register">注册</router-link></p>
+        <p>还没成为网上驴友？
+          <router-link to="/accountForm/register">注册</router-link>
+        </p>
       </div>
       <div class="form-button">
         <input type="submit" class="form-submit">
@@ -20,19 +22,50 @@
 </template>
 
 <script>
-    export default {
-        name: "login",
-        methods: {
-          login(){
-            alert("登录");
+  import {mapMutations} from 'vuex'
+  import {INITACCOUNT} from "@/store/mutations/mutation-types";
+
+  export default {
+    name: "login",
+    data() {
+      return {
+        userId: '',
+        password: ''
+      }
+    },
+    methods: {
+      ...mapMutations([INITACCOUNT]),
+      login() {
+        var that = this;
+        var url = "../../../static/data/accountInfo.json";
+        this.$http.get(url).then(function (response) {
+          var data = response.data;
+
+          if (data.status === 0) {
+
+            that.$store.commit(INITACCOUNT, data.message[0]);
+            that.$router.push({path: '/index'});
+          } else if(data.status === 1) {
+            that.$Message.warning({
+              content: data.message,
+              duration: 5
+            });
           }
-        }
+        }).catch(function (error) {
+          that.$Message.warning({
+            content: error,
+            duration: 5
+          });
+        });
+
+      }
+
     }
+  }
 </script>
 
 <style scoped>
-  .Inputform
-  {
+  .Inputform {
     /*width: 100%;*/
     /*display: inline-block;*/
     height: 500px;
@@ -42,12 +75,11 @@
     overflow: hidden;
   }
 
-  .Inputform>.form-body
-  {
+  .Inputform > .form-body {
     padding: 30px;
   }
-  .Inputform>.form-body>span
-  {
+
+  .Inputform > .form-body > span {
     display: inline-block;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -55,8 +87,8 @@
     margin: 0 0 30px 0;
     color: #000;
   }
-  .Inputform .form-input
-  {
+
+  .Inputform .form-input {
     display: block;
     width: 90%;
     font-size: 16px;
@@ -70,41 +102,39 @@
     transition: all 0.3s ease;
     outline: none;
   }
-  .Inputform .form-group
-  {
+
+  .Inputform .form-group {
     margin-bottom: 30px;
   }
-  .Inputform .form-group>label
-  {
+
+  .Inputform .form-group > label {
     font-family: "Open Sans", Arial, sans-serif;
     line-height: 1.5;
     font-size: 14px;
     font-weight: 300;
   }
-  .Inputform .form-group>label>input
-  {
+
+  .Inputform .form-group > label > input {
     margin: 4px 0 0;
 
     line-height: normal;
   }
 
-  .Inputform .form-group>p
-  {
+  .Inputform .form-group > p {
     font-size: 16px;
     color: #9f9f9f;
     font-weight: 300;
   }
-  .Inputform .form-group>p>a
-  {
+
+  .Inputform .form-group > p > a {
     color: #000000
   }
-  .Inputform .form-group>p>a:hover
-  {
+
+  .Inputform .form-group > p > a:hover {
     color: #f74133;
   }
 
-  .Inputform .form-submit
-  {
+  .Inputform .form-submit {
     display: inline-block;
     font-family: "Open Sans", Arial, sans-serif;
     line-height: 1.5;
@@ -121,12 +151,12 @@
     box-shadow: -2px 10px 20px -1px rgba(51, 204, 204, 0.4);
     margin-top: 2px;
   }
-  .Inputform .form-button
-  {
+
+  .Inputform .form-button {
     position: relative;
   }
-  .Inputform .form-return
-  {
+
+  .Inputform .form-return {
     display: inline-block;
     font-family: "Open Sans", Arial, sans-serif;
     line-height: 1.5;
@@ -139,7 +169,7 @@
     padding-right: 20px;
     padding-left: 20px;
     margin-left: 60px;
-    vertical-align:middle;
+    vertical-align: middle;
     border: 1px solid rgba(246, 246, 246, 0.4);
     background: #fff;
     background: -webkit-linear-gradient(#fff, #eee); /* Safari 5.1 - 6.0 */
@@ -147,10 +177,10 @@
     background: -moz-linear-gradient(#fff, #eee); /* Firefox 3.6 - 15 */
     background: linear-gradient(#fff, #eee); /* 标准的语法 */
     color: #000000;
-    box-shadow: -2px 10px 20px -1px rgba(0,0,0,0.2);
+    box-shadow: -2px 10px 20px -1px rgba(0, 0, 0, 0.2);
   }
-  .Inputform .form-return>span
-  {
+
+  .Inputform .form-return > span {
     display: inline-block;
     margin-top: 12px;
   }

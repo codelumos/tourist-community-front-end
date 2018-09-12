@@ -18,3 +18,9 @@ ul li
   width: 100%;
   overflow: hidden;
 }
+
+/*解决iview联动菜单大数据的显示问题*/
+.account-group ul li
+{
+  display: -webkit-box;
+}

@@ -12,29 +12,46 @@
           <ul>
             <li><router-link to="/index" class="active">首页</router-link></li>
             <li><router-link to="/editor">写博客</router-link></li>
-            <li><router-link to="/accountForm/login">登录</router-link></li>
             <li>
-              <router-link to="/accountForm/register">
-                注册&nbsp;
-              </router-link>
+              <router-link to="/travel/travelList">拼途</router-link>
             </li>
+            <li><a href="javascript:void(0)" @click="flag = true">注销</a></li>
           </ul>
         </nav>
       </header>
       </Col>
     </Row>
 
+
+    <Modal
+      v-model="flag"
+      title="通知"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <p style="font-size: 15px;text-align: center">确定要注销吗？</p>
+    </Modal>
   </div>
 
 </template>
 
 <script>
+  import {mapMutations} from 'vuex'
+  import {ACCOUNTLOGOUT} from "@/store/mutations/mutation-types";
+
   export default {
     name: "headnav-color",
     data(){
       return {
-
+        flag: false
       };
+    },
+    methods:{
+      ...mapMutations([ACCOUNTLOGOUT]),
+      ok(){
+        this.$store.commit(ACCOUNTLOGOUT);
+        this.$router.push({path: '/index'});
+      },
+      cancel(){}
     }
 
   }

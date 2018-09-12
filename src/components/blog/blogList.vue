@@ -31,6 +31,19 @@
 
   export default {
     name: "blog-list",
+    data(){
+     return {
+       blogList: [
+         {
+
+         },
+         {}
+       ]
+     };
+    },
+    created(){
+
+    },
     components:{
       board,
       headNav,

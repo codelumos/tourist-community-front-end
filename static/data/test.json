@@ -1,0 +1,158 @@
+[
+  {
+    "value": 1,
+    "label": "北京",
+    "children": [
+      {
+        "value": 1,
+        "label": "东城区"
+      },
+      {
+        "value": 2,
+        "label": "西城区"
+      },
+      {
+        "value": 3,
+        "label": "崇文区"
+      },
+      {
+        "value": 4,
+        "label": "宣武区"
+      },
+      {
+        "value": 5,
+        "label": "朝阳区"
+      },
+      {
+        "value": 6,
+        "label": "丰台区"
+      },
+      {
+        "value": 7,
+        "label": "石景山区"
+      },
+      {
+        "value": 8,
+        "label": "海淀区"
+      },
+      {
+        "value": 9,
+        "label": "门头沟区"
+      },
+      {
+        "value": 10,
+        "label": "房山区"
+      },
+      {
+        "value": 11,
+        "label": "通州区"
+      },
+      {
+        "value": 12,
+        "label": "顺义区"
+      },
+      {
+        "value": 13,
+        "label": "昌平区"
+      },
+      {
+        "value": 14,
+        "label": "大兴区"
+      },
+      {
+        "value": 15,
+        "label": "怀柔区"
+      },
+      {
+        "value": 16,
+        "label": "平谷区"
+      },
+      {
+        "value": 17,
+        "label": "密云县"
+      },
+      {
+        "value": 18,
+        "label": "延庆县"
+      }
+    ]
+  },
+  {
+    "value": 2,
+    "label": "天津",
+    "children": [
+      {
+        "value": 19,
+        "label": "和平区"
+      },
+      {
+        "value": 20,
+        "label": "河东区"
+      },
+      {
+        "value": 21,
+        "label": "河西区"
+      },
+      {
+        "value": 22,
+        "label": "南开区"
+      },
+      {
+        "value": 23,
+        "label": "河北区"
+      },
+      {
+        "value": 24,
+        "label": "红桥区"
+      },
+      {
+        "value": 25,
+        "label": "塘沽区"
+      },
+      {
+        "value": 26,
+        "label": "汉沽区"
+      },
+      {
+        "value": 27,
+        "label": "大港区"
+      },
+      {
+        "value": 28,
+        "label": "东丽区"
+      },
+      {
+        "value": 29,
+        "label": "西青区"
+      },
+      {
+        "value": 30,
+        "label": "津南区"
+      },
+      {
+        "value": 31,
+        "label": "北辰区"
+      },
+      {
+        "value": 32,
+        "label": "武清区"
+      },
+      {
+        "value": 33,
+        "label": "宝坻区"
+      },
+      {
+        "value": 34,
+        "label": "宁河县"
+      },
+      {
+        "value": 35,
+        "label": "静海县"
+      },
+      {
+        "value": 36,
+        "label": "蓟县"
+      }
+    ]
+  }
+]
