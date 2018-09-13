@@ -5,10 +5,10 @@
     <div class="account-background">
       <div class="account-avatar">
         <img v-if="accountInfo.path" :src="accountInfo.path" alt="头像">
-        <img v-else src="../../../static/img/黑子.jpg" alt="头像">
+        <img v-else :src="accountInfo.path" alt="头像">
       </div>
       <div class="account-name">
-        <input type="text" v-model="accountInfo.name" maxlength="20">
+        <input type="text" v-model="accountInfo.userName" maxlength="20">
         <div>
           <Icon type="md-happy" />
           <span>账号:{{accountInfo.userId}}</span>
@@ -57,7 +57,6 @@
       headNav,
       footNav,
       backTop,
-
       infoForm
     }
   }

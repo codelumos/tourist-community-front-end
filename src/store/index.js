@@ -7,12 +7,14 @@ Vue.use(Vuex);
 import vuexAlong from 'vuex-along';
 
 import account from './modules/account';
+import blog from './modules/blog';
 
 // 全局状态管理
 // 用户
 export default new Vuex.Store({
   modules:{
-    account
+    account,
+    blog
   },
   plugins: [vuexAlong]
 });

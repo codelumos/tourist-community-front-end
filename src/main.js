@@ -17,6 +17,13 @@ import 'iview/dist/styles/iview.css';
 import ivew from 'iview';
 Vue.use(ivew);
 
+import Moment from 'moment';
+// 定义全局过滤器实现日期的格式化
+Vue.filter("datefmt",function (input,fmtString) {
+  // 使用 momentjs 日期格式化类库实现日期格式化
+  return Moment(Date.parse(input)).format(fmtString);
+});
+
 // 导入当前系统的全局样式
 import '../static/css/site.css';
 

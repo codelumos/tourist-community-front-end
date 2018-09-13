@@ -6,29 +6,33 @@
     <!--E: 顶部导航栏组件-->
 
     <div class='tinymce'>
-      <h1>Blog</h1><br>
-      <input id="title" placeholder="请输入标题" /><br><br>
+      <h1>Blog:{{manuscript.title}}</h1>
+      <br>
+      <Input placeholder="请输入标题" v-model="manuscript.title" style="width: 100%"/>
+      <br><br>
       <Row class="account-group">
         <Col span="1">
         <label>时间：</label>
         </Col>
         <Col span="4">
-        <Input type="date" placeholder="时间" />
+        <Input type="date" placeholder="时间" v-model="manuscript.time"/>
         </Col>
         <Col span="1" offset="3">
         <label>地点：</label>
         </Col>
         <Col span="4">
-        <Cascader :data="address" ></Cascader>
+        <Cascader :data="address" v-model="manuscript.place"></Cascader>
         </Col>
       </Row>
 
 
-      <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
+      <editor id='tinymce' v-model='manuscript.content' :init='init'></editor>
       <br>
-      <Button class="button" :size="buttonSize" type="primary">发表</Button>
-      <Button class="button" :size="buttonSize" type="success">保存</Button>
-      <Button class="button" :size="buttonSize" type="default"><router-link to="/index">返回</router-link></Button>
+      <Button class="button" :size="buttonSize" type="primary" @click="flag = true">发表</Button>
+      <Button class="button" :size="buttonSize" type="success" @click="saveBlog()">保存</Button>
+      <Button class="button" :size="buttonSize" type="default" @click="cancelBlog()">
+        返回
+      </Button>
     </div>
 
     <!--S：返回顶部-->
@@ -39,11 +43,20 @@
     <footNav></footNav>
     <!--E：页脚部分-->
 
+    <Modal
+      v-model="flag"
+      title="通知"
+      @on-ok="ok"
+      :styles="{top: '20px'}"
+      draggable>
+      <p style="font-size: 15px;text-align: center">确定要发表吗?</p>
+    </Modal>
+
   </div>
 </template>
 
 <script>
-  import headNav from '../subcom/headNav-color.vue';
+  import headNav from '../subcom/headNav-white.vue';
   import footNav from '../subcom/footNav';
   import backTop from '../subcom/backTop';
 
@@ -61,11 +74,13 @@
   import 'tinymce/plugins/colorpicker'
   import 'tinymce/plugins/textcolor'
 
+  import {mapMutations} from 'vuex';
+  import {INITBLOG, CANCELBLOG} from "@/store/mutations/mutation-types";
+
   export default {
     name: 'tinymce',
     data() {
       return {
-        tinymceHtml: '',
         init: {
           language_url: '/static/components/tinymce/zh_CN.js',
           language: 'zh_CN',
@@ -77,11 +92,25 @@
           branding: false
         },
         buttonSize: 'large',
-        address: []
+        address: [],
+        manuscript: {
+          title: '',
+          time: '',
+          place: [],
+          content: ''
+        },
+        flag: false
       }
     },
-    methods:{
-      initAddress(){
+    methods: {
+      ...mapMutations([INITBLOG, CANCELBLOG]),
+      initBlog() {
+        if (this.$store.state.blog.blogInfo != null) {
+
+          this.manuscript = Object.assign({}, this.$store.state.blog.blogInfo);
+        }
+      },
+      initAddress() {
         var that = this;
         var url = '../../static/data/address.json';
 
@@ -91,11 +120,36 @@
         }).catch(function (error) {
           that.$Message.warning(error);
         });
+      },
+      ok() {
+        this.publishBlog();
+      },
+      publishBlog() {
+        // 往数据库中存入该博客
+        this.$store.commit(INITBLOG, this.manuscript);
+        this.$store.commit(CANCELBLOG);
+        this.$Message.success({
+          content: "发表成功！",
+          duration: 5
+        });
+        this.$router.push({path: '/account'})
 
       },
+      saveBlog() {
+        this.$store.commit(INITBLOG, this.manuscript);
+        this.$Message.success({
+          content: "保存成功！",
+          duration: 5
+        });
+      },
+      cancelBlog() {
+        this.$store.commit(CANCELBLOG);
+        this.$router.push({path: '/index'});
+      },
     },
-    created(){
+    created() {
       this.initAddress();
+      this.initBlog();
     },
     mounted() {
       tinymce.init({})
@@ -120,20 +174,15 @@
     margin: 100px auto;
   }
 
-  #title {
-    width: 90%;
-    font-size: 18px;
-  }
-  .button
-  {
+  .button {
     margin-right: 30px;
   }
-  .account-group
-  {
+
+  .account-group {
     margin-bottom: 20px;
   }
-  .account-group label
-  {
+
+  .account-group label {
     font-size: 15px;
     line-height: 35px;
   }

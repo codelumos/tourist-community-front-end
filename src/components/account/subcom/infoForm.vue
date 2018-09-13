@@ -8,13 +8,13 @@
             <label>用户名：</label>
             </Col>
             <Col span="4">
-            <Input placeholder="用户名" v-model="accountInfo.name"/>
+            <Input placeholder="用户名" v-model="account.userName"/>
             </Col>
             <Col span="1" offset="3">
             <label>密码：</label>
             </Col>
             <Col span="4">
-            <Input type="password" placeholder="密码" v-model="accountInfo.password"/>
+            <Input type="password" placeholder="密码" v-model="account.password"/>
             </Col>
           </Row>
           <Row class="account-group">
@@ -22,7 +22,7 @@
             <label>性别：</label>
             </Col>
             <Col span="4">
-            <Select v-model="accountInfo.sex">
+            <Select v-model="account.sex">
               <Option value="m">男</Option>
               <Option value="f">女</Option>
             </Select>
@@ -31,7 +31,7 @@
             <label>生日：</label>
             </Col>
             <Col span="4">
-            <Input type="date" placeholder="生日" v-model="accountInfo.birthday"/>
+            <Input type="date" placeholder="生日" v-model="accountBirth"/>
             </Col>
           </Row>
           <Row class="account-group">
@@ -39,13 +39,13 @@
             <label>家乡：</label>
             </Col>
             <Col span="4">
-            <Cascader :data="address" v-model="accountInfo.homelp"></Cascader>
+            <Cascader :data="address" v-model="account.homelp"></Cascader>
             </Col>
             <Col span="1" offset="3">
             <label>现住地：</label>
             </Col>
             <Col span="4">
-            <Cascader :data="address" v-model="accountInfo.homelp"></Cascader>
+            <Cascader :data="address" v-model="account.homelp"></Cascader>
             </Col>
           </Row>
           <Row class="account-group">
@@ -90,19 +90,23 @@
 <script>
   import blogCard from '../../blog/subcom/blogCard';
   import upload from '../subcom/upload';
+  import Moment from 'moment';
 
-  import {mapState} from 'vuex';
+  import {mapState,mapMutations} from 'vuex';
+  import {INITACCOUNT} from "../../../store/mutations/mutation-types";
 
   export default {
     name: "infoForm",
     data() {
       return {
+        account:{},
         address: [],
         hometown: [],
         residence: []
       }
     },
     methods: {
+      ...mapMutations([INITACCOUNT]),
       initAddress(){
         var that = this;
         var url = '../../../static/data/address.json';
@@ -115,24 +119,32 @@
         });
 
       },
-      accountAddress(){
-        this.hometown = this.$store.state.account.accountInfo.homelp;
-        this.residence = this.$store.state.account.accountInfo.homelp;
-      },
       submit(){
-        alert("存储用户信息");
+        this.$store.commit(INITACCOUNT,this.account);
       }
     },
     created(){
+      this.account = Object.assign({},this.accountInfo);
       this.initAddress();
-      // this.accountAddress();
+
     },
     computed: {
       ...mapState({
         accountInfo: state => {
           return state.account.accountInfo;
         }
-      })
+      }),
+      accountBirth:{
+        get: function () {
+          return Moment(Date.parse(this.account.birthday)).format("YYYY-MM-DD");
+        },
+        // setter
+        set: function (newValue) {
+          this.account.birthday = newValue;
+        }
+      },
+
+
     },
     components: {
       upload,

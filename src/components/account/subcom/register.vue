@@ -3,8 +3,8 @@
     <div class="form-body">
 
       <span>驴友，请注册</span>
-      <input type="text" class="form-input" name="username" placeholder="账号" v-model="userId">
-      <input type="password" class="form-input" name="password" placeholder="密码" v-model="password">
+      <input type="text" class="form-input" name="username" placeholder="账号" v-model="account.userId">
+      <input type="password" class="form-input" name="password" placeholder="密码" v-model="account.password">
       <input type="password" class="form-input" name="password" placeholder="记住密码" v-model="repeatPassword">
       <div class="form-button">
         <input type="submit" class="form-submit">
@@ -15,47 +15,82 @@
 </template>
 
 <script>
+  import common from '../../../common/common';
+
   export default {
     name: "register",
     data() {
       return {
-        userId: '',
-        password: '',
+        account: {
+          userId: '',
+          password: ''
+        },
         repeatPassword: ''
       };
     },
     methods: {
       register() {
-        var that = this;
-        if (this.password === this.repeatPassword) {
-          var url = "../../../static/data/register.json";// 还需要加上用户Id
-          this.$http.get(url).then(function (response) {
-            var data = response.data;
-            if (data.status === 0) {
-              that.$Message.success({
-                content: data.message,
+        if(this.account.userId.trim().length * this.account.password.trim().length === 0){
+          this.$Message.warning({
+            content: "账号或者密码不能为空!",
+            duration: 5
+          })
+        }else{
+          var that = this;
+          if (this.account.password === this.repeatPassword) {
+            // 判断用户是否存在
+            if (this.isExist()) {
+              this.$Message.warning({
+                content: "该用户已存在！",
                 duration: 5
               });
-
-              //若注册成功清空表单
-              that.userId = '';
-              that.password = '';
-              that.repeatPassword = '';
-
             } else {
-              that.$Message.warning({
-                content: data.message,
-                duration: 5
+              var url = common.apidomain + "/accounts";
+              this.$http.post(url,{account: this.account,accountInfo: null}).then(function (response) {
+                var data = response.data;
+                if (data.status === 0) {
+                  that.$Message.success({
+                    content: data.message,
+                    duration: 5
+                  });
+
+                  //若注册成功清空表单
+                  that.account.userId = '';
+                  that.account.password = '';
+                  that.repeatPassword = '';
+
+                } else {
+                  that.$Message.warning({
+                    content: data.message,
+                    duration: 5
+                  });
+                }
+              }).catch(function (error) {
+                that.$Message.warning({
+                  content: error,
+                  duration: 5
+                });
               });
             }
-          })
-        } else {
-          that.$Message.warning({
-            content: "两次密码不匹配",
-            duration: 5
-          });
+          } else {
+            that.$Message.warning({
+              content: "两次密码不匹配",
+              duration: 5
+            });
+          }
         }
-
+      },
+      async isExist() {
+        // 这里需要用 async 和 await 关键字去阻塞 ajax 的执行顺序
+        var url = common.apidomain + "/accounts?userId=" + this.account.userId;
+        await this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if (data.status === 1) {
+            return true;
+          } else {
+            return false;
+          }
+        })
       }
     }
   }

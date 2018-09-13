@@ -6,19 +6,20 @@
         <nav>
           <div class="logo">
             <router-link to="/account" v-if="accountInfo">
-              一把健
+              <img :src="accountInfo.imagePath" alt="">
+              <span>{{accountInfo.userName}}</span>
             </router-link>
-            <a href="javascript:void(0)" v-else>
+            <router-link to="/index" v-else>
               项目LOGO
-            </a>
+            </router-link>
           </div>
 
           <ul>
-            <li><searchInput class="searchInput"></searchInput></li>
+            <li><searchInput class="searchInput" style="z-index: 4"></searchInput></li>
             <li><router-link to="/index">首页</router-link></li>
-            <li><router-link to="/editor">写博客</router-link></li>
+            <li><a href="javascript:void(0)" @click="toBlog()">写博客</a></li>
             <li>
-              <router-link to="/travel/travelList">拼途</router-link>
+              <a href="javascript:void(0)" @click="toTravel()">拼途</a>
             </li>
             <li v-if="accountInfo"><a href="javascript:void(0)" @click="flag = true">注销</a></li>
             <li v-else><router-link to="/accountForm/login">登录</router-link></li>
@@ -36,7 +37,8 @@
       v-model="flag"
       title="通知"
       @on-ok="ok"
-      @on-cancel="cancel">
+      :styles="{top: '20px'}"
+      draggable>
       <p style="font-size: 15px;text-align: center">确定要注销吗？</p>
     </Modal>
   </div>
@@ -46,7 +48,7 @@
 <script>
   import searchInput from '../subcom/searchInput';
   import {mapState,mapMutations} from 'vuex'
-  import {ACCOUNTLOGOUT} from "@/store/mutations/mutation-types";
+  import {ACCOUNTLOGOUT,CANCELBLOG} from "@/store/mutations/mutation-types";
 
   export default {
     name: "headnav-color",
@@ -59,11 +61,37 @@
       ...mapMutations([ACCOUNTLOGOUT]),
       ok(){
         this.$store.commit(ACCOUNTLOGOUT);
-        if(this.$route.path === '/account'){
-          this.$router.push({path: '/index'})
+        this.$store.commit(CANCELBLOG);
+        switch (this.$route.path){
+          case '/account':
+          case '/editor':
+          case '/travel/travelList':
+          case '/travel/travelInfo':
+            this.$router.push({path: '/accountForm/login'});
+
+        }
+
+      },
+      toBlog(){
+        if(this.$store.state.account.accountInfo){
+          this.$router.push({path: '/editor'})
+        }else{
+          this.$Message.warning({
+            content: "请先登录",
+            duration: 5
+          })
         }
       },
-      cancel(){}
+      toTravel(){
+        if(this.$store.state.account.accountInfo){
+          this.$router.push({path: '/travel/travelList'})
+        }else{
+          this.$Message.warning({
+            content: "请先登录",
+            duration: 5
+          })
+        }
+      }
     },
     components:{
       searchInput
@@ -152,5 +180,18 @@
   .searchInput
   {
     margin: 0;
+  }
+
+  .logo img{
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+  }
+  .logo span{
+    margin-left: 36px;
   }
 </style>

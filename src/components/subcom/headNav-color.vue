@@ -6,7 +6,8 @@
         <nav>
           <div class="logo">
             <router-link to="/account">
-              一把健
+              <img src="../../../static/img/黑子.jpg" alt="">
+              <span>一把健</span>
             </router-link>
           </div>
           <ul>
@@ -67,7 +68,8 @@
   nav {
     height: 50px;
     /*background: #2d8cf0;*/
-    background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
+    /*background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);*/
+    background-image: linear-gradient( 135deg, #3C8CE7 10%, #00EAFF 100%);
     z-index: 3;
     position: relative;
     top: 0;
@@ -125,5 +127,17 @@
     letter-spacing: 1px;
 
     color: #fff;
+  }
+  .logo img{
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+  }
+  .logo span{
+    margin-left: 36px;
   }
 </style>

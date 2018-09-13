@@ -29,7 +29,6 @@
   import backTop from '../subcom/backTop';
   import choiceCard from './subcom/choiceCard'
 
-
   export default {
     name: "mate",
     data() {

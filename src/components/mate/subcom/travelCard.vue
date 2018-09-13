@@ -9,7 +9,7 @@
             </span>
 
             <h3>
-              <a href="">国庆北京-西安-成都 自驾</a>
+              <router-link to="/travel/travelInfo">国庆北京-西安-成都 自驾</router-link>
             </h3>
         </div>
         <div class="card-body">
@@ -75,10 +75,6 @@
     border-radius: 100%;
   }
 
-  .card-head .title{
-    display: inline-block;
-  }
-
   a {
     color: #17233d;
     text-decoration: none
@@ -101,9 +97,6 @@
   .clearfix {
     display: block;
     zoom: 1
-  }
-
-  .title {
   }
 
   .title h3 {

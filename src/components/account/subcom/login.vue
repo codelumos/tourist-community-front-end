@@ -3,8 +3,8 @@
     <div class="form-body">
 
       <span>驴友，请登录</span>
-      <input type="text" class="form-input" name="username" placeholder="账号" v-model="userId">
-      <input type="password" class="form-input" name="password" placeholder="密码" v-model="password">
+      <input type="text" class="form-input" name="username" placeholder="账号" v-model="account.userId">
+      <input type="password" class="form-input" name="password" placeholder="密码" v-model="account.password">
       <div class="form-group">
         <label for="remember"><input type="checkbox" id="remember"> 记住我？</label>
       </div>
@@ -25,39 +25,51 @@
   import {mapMutations} from 'vuex'
   import {INITACCOUNT} from "@/store/mutations/mutation-types";
 
+  import common from '../../../common/common';
+
   export default {
     name: "login",
     data() {
       return {
-        userId: '',
-        password: ''
+        account: {
+          userId: '',
+          password: ''
+        }
       }
     },
     methods: {
       ...mapMutations([INITACCOUNT]),
       login() {
-        var that = this;
-        var url = "../../../static/data/accountInfo.json";
-        this.$http.get(url).then(function (response) {
-          var data = response.data;
 
-          if (data.status === 0) {
+        if(this.account.userId.trim().length * this.account.password.trim().length > 0){
+          var that = this;
+          var url = common.apidomain + "/accounts/login";
+          this.$http.post(url,{userId: this.account.userId,password: this.account.password}).then(function (response) {
+            var data = response.data;
 
-            that.$store.commit(INITACCOUNT, data.message[0]);
-            that.$router.push({path: '/index'});
-          } else if(data.status === 1) {
+            if (data.status === 0) {
+
+              that.$store.commit(INITACCOUNT, data.message[0]);
+              that.$router.push({path: '/index'});
+            } else if (data.status === 1) {
+              that.$Message.warning({
+                content: data.message,
+                duration: 5
+              });
+            }
+          }).catch(function (error) {
             that.$Message.warning({
-              content: data.message,
+              content: error,
               duration: 5
             });
-          }
-        }).catch(function (error) {
-          that.$Message.warning({
-            content: error,
+          });
+
+        }else{
+          this.$Message.warning({
+            content: "账号或者密码不能为空！",
             duration: 5
           });
-        });
-
+        }
       }
 
     }

@@ -12,11 +12,12 @@
     <!--S: 主体部分-->
     <Row class="context">
       <Col span="4" offset="2">
-       <user-desc></user-desc>
+      <user-desc></user-desc>
       </Col>
 
       <Col span="13" offset="7">
-        <blog></blog>
+      <blog></blog>
+      <comment></comment>
       </Col>
     </Row>
     <!--E: 主体部分-->
@@ -39,6 +40,7 @@
   import userDesc from './subcom/userDesc';
   import blog from './subcom/blog';
   import backTop from '../subcom/backTop';
+  import comment from '../subcom/comment';
 
   export default {
     name: 'index',
@@ -51,7 +53,8 @@
       board,
       userDesc,
       blog,
-      backTop
+      backTop,
+      comment
     }
   }
 </script>

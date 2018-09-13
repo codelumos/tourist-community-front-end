@@ -19,6 +19,7 @@
     height: 150px;
     background: #121c2d;
     text-align: center;
+    margin-top: 10px;
   }
   .footNav>a
   {

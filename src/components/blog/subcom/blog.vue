@@ -89,7 +89,6 @@
     float: right;
     display: inline-block;
     min-height: 600px;
-    margin-bottom: 100px;
   }
 
   img {

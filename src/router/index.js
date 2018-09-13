@@ -19,6 +19,7 @@ import otherAccount from '../components/account/otherAccount';
 // 拼途
 import travel from '../components/mate/mate';
 import travelList from '../components/mate/subcom/travelList';
+import travelInfo from '../components/mate/subcom/travelInfo';
 
 Vue.use(Router);
 
@@ -85,6 +86,11 @@ export default new Router({
           path: 'travelList',
           name: 'travelList',
           component: travelList
+        },
+        {
+          path: 'travelInfo',
+          name: 'travelInfo',
+          component: travelInfo
         }
       ]
     }

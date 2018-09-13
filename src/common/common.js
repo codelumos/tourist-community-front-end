@@ -1,3 +1,3 @@
 export default {
-  apidomain: 'http://localhost:8080'
+  apidomain: 'http://localhost:8088/travelbyex/v1'
 }

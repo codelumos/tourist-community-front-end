@@ -3,8 +3,9 @@
   "message": [
     {
       "userId": "liu",
-      "name": "liu",
-      "path": "pic",
+      "userName": "liu",
+      "imagePath": "../../static/img/黑子.jpg",
+      "description": "../../static/img/黑子.jpg",
       "sex": "m",
       "homelp": [1,1],
       "homesp": "郑州",

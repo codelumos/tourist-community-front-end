@@ -31,7 +31,19 @@
             <label>湖南省>长沙市</label>
             </Col>
           </Row>
+          <Row class="account-group">
+            <Col span="1" offset="6">
+            <label>标签：</label>
+            </Col>
+            <Col span="4">
+            <label>
+              <Tag color="default">冒险</Tag>
+              <Tag color="default">骑行</Tag>
+              <Tag color="default">小动物</Tag>
+            </label>
+            </Col>
 
+          </Row>
         </div>
       </TabPane>
       <TabPane label="博客" name="blog">

@@ -1,3 +1,6 @@
 export const
   INITACCOUNT = 'initAccount',
-  ACCOUNTLOGOUT = 'accountLogout'
+  ACCOUNTLOGOUT = 'accountLogout',
+
+  INITBLOG = 'initBlog',
+  CANCELBLOG = 'cancelBlog'
