@@ -39,29 +39,48 @@
             <label>家乡：</label>
             </Col>
             <Col span="4">
-            <Cascader :data="address" v-model="account.homelp"></Cascader>
+            <Cascader :data="address" v-model="account.home"></Cascader>
             </Col>
             <Col span="1" offset="3">
             <label>现住地：</label>
             </Col>
             <Col span="4">
-            <Cascader :data="address" v-model="account.homelp"></Cascader>
+            <Cascader :data="address" v-model="account.live"></Cascader>
             </Col>
           </Row>
           <Row class="account-group">
+            <Col span="1" offset="6">
+            <label>描述：</label>
+            </Col>
+            <Col span="4">
+            <Input type="textarea" v-model="account.description"/>
+            </Col>
+            <Col span="1" offset="3">
+            <label>标签：</label>
+            </Col>
+            <Col span="4">
+            <Input class="tagInput" placeholder="输入标签,最多三条" v-model="tag"/>
+            <Tag v-if="account.tag1" :key="1" :name="account.tag1" closable @on-close="handleClose">{{ account.tag1 }}
+            </Tag>
+            <Tag v-if="account.tag2" :key="2" :name="account.tag2" closable @on-close="handleClose">{{ account.tag2 }}
+            </Tag>
+            <Tag v-if="account.tag3" :key="3" :name="account.tag3" closable @on-close="handleClose">{{ account.tag3 }}
+            </Tag>
+            <Button v-if="!(account.tag1 && account.tag2 && account.tag3)" icon="ios-add" type="dashed" size="small"
+                    @click="handleAdd">添加标签
+            </Button>
+            </Col>
+          </Row>
+          <Row>
             <Col span="1" offset="6">
             <label>头像：</label>
             </Col>
             <Col span="4">
             <upload></upload>
             </Col>
-            <Col span="1" offset="3">
-            <label>描述：</label>
-            </Col>
-            <Col span="4">
-            <Input type="textarea"/>
-            </Col>
+
           </Row>
+          <br>
           <Row class="account-group">
             <Col span="4" offset="12">
             <Button type="success" size="large" @click="submit()">提交</Button>
@@ -76,8 +95,7 @@
         <div class="account-blog">
           <Row>
             <Col span="18" offset="3">
-            <blogCard></blogCard>
-
+              <blogCard :articles="articles"></blogCard>
             </Col>
           </Row>
         </div>
@@ -92,22 +110,25 @@
   import upload from '../subcom/upload';
   import Moment from 'moment';
 
-  import {mapState,mapMutations} from 'vuex';
+  import {mapState, mapMutations} from 'vuex';
   import {INITACCOUNT} from "../../../store/mutations/mutation-types";
+
+  import common from '../../../common/common';
 
   export default {
     name: "infoForm",
     data() {
       return {
-        account:{},
+        account: {},
         address: [],
         hometown: [],
-        residence: []
+        tag: '',
+        articles: []
       }
     },
     methods: {
       ...mapMutations([INITACCOUNT]),
-      initAddress(){
+      initAddress() {
         var that = this;
         var url = '../../../static/data/address.json';
 
@@ -115,17 +136,83 @@
 
           that.address = response.data;
         }).catch(function (error) {
+
           that.$Message.warning(error);
         });
 
       },
-      submit(){
-        this.$store.commit(INITACCOUNT,this.account);
+      submit() {
+        // 向数据库中存入该信息
+        var that = this;
+        var url = common.apidomain + "/accounts";
+        console.log(this.account);
+        this.$http.put(url, {accountUp: this.account}).then(function (response) {
+
+          var data = response.data;
+          if (data.status === 0) {
+
+            that.$store.commit(INITACCOUNT, that.account);
+            that.$Message.success({
+              content: data.message,
+              duration: 5
+            });
+          } else {
+            console.log(data.message)
+            that.$Message.success({
+              content: data.message,
+              duration: 5
+            });
+          }
+        });
+
+
+      },
+      handleAdd() {
+        if (this.account.tag1.length === 0) {
+          this.account.tag1 = this.tag;
+        } else if (this.account.tag2.length === 0) {
+          this.account.tag2 = this.tag;
+        } else {
+          this.account.tag3 = this.tag;
+        }
+        this.tag = "";
+      },
+      handleClose(event, name) {
+        if (this.account.tag3) {
+          this.account.tag3 = "";
+        } else if (this.account.tag2) {
+          this.account.tag2 = "";
+        } else {
+          this.account.tag1 = "";
+        }
+      },
+      initArticles(){
+        var that = this;
+        var url = common.apidomain + "/articlesByAuthor?authorId=" + this.account.userId;
+        this.$http.get(url).then(function (response) {
+
+          var data = response.data;
+          if(data.status === 0){
+            that.articles = data.message;
+
+          }else{
+            that.$Message.warning({
+              content: data.message,
+              duration: 5
+            });
+
+          }
+        });
       }
     },
-    created(){
-      this.account = Object.assign({},this.accountInfo);
+    created() {
+      // 用户个人信息 填充
+      this.account = Object.assign({}, this.accountInfo);
+      this.$emit('account',this.account);
       this.initAddress();
+
+      // 用户博客信息 填充
+      this.initArticles();
 
     },
     computed: {
@@ -134,7 +221,7 @@
           return state.account.accountInfo;
         }
       }),
-      accountBirth:{
+      accountBirth: {
         get: function () {
           return Moment(Date.parse(this.account.birthday)).format("YYYY-MM-DD");
         },
@@ -166,6 +253,10 @@
 
   .account-group {
     margin-bottom: 20px;
+  }
+
+  .tagInput {
+    margin-bottom: 10px;
   }
 
 </style>

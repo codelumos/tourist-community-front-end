@@ -4,18 +4,18 @@
     <headNav></headNav>
     <div class="account-background">
       <div class="account-avatar">
-        <img v-if="accountInfo.path" :src="accountInfo.path" alt="头像">
-        <img v-else :src="accountInfo.path" alt="头像">
+        <img :src="account.imagePath" alt="头像">
+
       </div>
       <div class="account-name">
-        <input type="text" v-model="accountInfo.userName" maxlength="20">
+        <input type="text" v-model="account.userName" maxlength="20">
         <div>
           <Icon type="md-happy" />
-          <span>账号:{{accountInfo.userId}}</span>
+          <span>账号:{{account.userId}}</span>
         </div>
       </div>
     </div>
-    <infoForm></infoForm>
+    <infoForm v-on:account="changeAccount"></infoForm>
     <footNav></footNav>
     <backTop></backTop>
 
@@ -35,7 +35,7 @@
     name: "account",
     data () {
       return {
-
+        account: {}
       }
     },
     computed:{
@@ -46,12 +46,14 @@
       })
     },
     methods:{
-
+      changeAccount(input){
+        // 父组件同步更新
+        this.account = input;
+      }
     },
     created(){
       // 将用户信息查出
-
-      // this.initAddress();
+      this.account = Object.assign({}, this.accountInfo);
     },
     components: {
       headNav,

@@ -10,6 +10,8 @@
         <Col span="18" offset="3">
           <blogCard></blogCard>
           <blogCard></blogCard>
+        <travelCard></travelCard>
+        <travelCard></travelCard>
         </Col>
       </Row>
 
@@ -28,6 +30,7 @@
   import footNav from '../subcom/footNav';
 
   import blogCard from './subcom/blogCard';
+  import travelCard from '../mate/subcom/travelCard2';
 
   export default {
     name: "blog-list",
@@ -49,7 +52,8 @@
       headNav,
       backTop,
       footNav,
-      blogCard
+      blogCard,
+      travelCard
     }
   }
 </script>

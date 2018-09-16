@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import travelCard from './travelCard';
+  import travelCard from './travelCard2';
 
   export default {
     name: "travel-list",

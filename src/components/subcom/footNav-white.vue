@@ -7,9 +7,9 @@
 </template>
 
 <script>
-    export default {
-        name: "foot-nav"
-    }
+  export default {
+    name: "foot-nav-white"
+  }
 </script>
 
 <style scoped>
@@ -17,9 +17,10 @@
   {
     width: 100%;
     height: 150px;
-    background: #121c2d;
+    background: #fff;
     text-align: center;
     margin-top: 10px;
+    border-top: 1px solid #eee;
   }
   .footNav>a
   {
@@ -32,6 +33,6 @@
   }
   .footNav>a:hover
   {
-    color: #fff;
+    color: #555555;
   }
 </style>

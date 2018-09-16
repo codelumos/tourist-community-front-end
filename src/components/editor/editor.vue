@@ -20,8 +20,14 @@
         <Col span="1" offset="3">
         <label>地点：</label>
         </Col>
-        <Col span="4">
-        <Cascader :data="address" v-model="manuscript.place"></Cascader>
+        <Col span="2">
+        <Input placeholder="大地点" />
+        </Col>
+        <Col span="2" offset="1">
+        <Input placeholder="小地点" />
+        </Col>
+        <Col span="4" offset="1">
+        <Input placeholder="景点" />
         </Col>
       </Row>
 
@@ -86,7 +92,7 @@
           language: 'zh_CN',
           skin_url: '/static/components/tinymce/skins/lightgray',
           height: 400,
-          plugins: 'autoresize link lists image code table colorpicker textcolor wordcount contextmenu',
+          plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
           toolbar:
             'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
           branding: false
@@ -110,17 +116,6 @@
           this.manuscript = Object.assign({}, this.$store.state.blog.blogInfo);
         }
       },
-      initAddress() {
-        var that = this;
-        var url = '../../static/data/address.json';
-
-        this.$http.get(url).then(function (response) {
-
-          that.address = response.data;
-        }).catch(function (error) {
-          that.$Message.warning(error);
-        });
-      },
       ok() {
         this.publishBlog();
       },
@@ -143,12 +138,10 @@
         });
       },
       cancelBlog() {
-        this.$store.commit(CANCELBLOG);
         this.$router.push({path: '/index'});
       },
     },
     created() {
-      this.initAddress();
       this.initBlog();
     },
     mounted() {

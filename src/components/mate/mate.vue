@@ -15,7 +15,7 @@
       <choiceCard></choiceCard>
     </Row>
 
-
+    <!--<test></test>-->
     <backTop></backTop>
     <!--S：页脚部分-->
     <footNav></footNav>
@@ -25,9 +25,10 @@
 
 <script>
   import headNav from '../subcom/headNav-white.vue';
-  import footNav from '../subcom/footNav';
+  import footNav from '../subcom/footNav-white';
   import backTop from '../subcom/backTop';
   import choiceCard from './subcom/choiceCard'
+  import test from './test';
 
   export default {
     name: "mate",
@@ -38,7 +39,8 @@
       headNav,
       footNav,
       choiceCard,
-      backTop
+      backTop,
+      test
     }
   }
 </script>

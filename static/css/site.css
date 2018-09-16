@@ -24,3 +24,14 @@ ul li
 {
   display: -webkit-box;
 }
+
+/*解决iview 折叠面板的头高度固定问题*/
+.ivu-collapse>.ivu-collapse-item>.ivu-collapse-header
+{
+  height: 100%;
+}
+
+.card-content .ivu-collapse-simple
+{
+  border: none;
+}

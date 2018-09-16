@@ -1,24 +1,24 @@
 <template>
   <div class="blogCard">
-    <Card class="card">
+    <Card class="card" v-for="(article,index) in articles.articles" :key="article.articleId">
       <div class="cardContent">
         <div class="blogAuthor">
           <div>
             <a href="javascript:void(0)">
             <img class="author-avatar" alt=""
-                    src="http://img1.lotour.net/Inspiration/2015/1204/20151204213355229789732_310.jpg "/>
+                    :src="articles.accountUps[index].imagePath"/>
             </a>
           </div>
           <div class="author-name">
             <router-link to="/otherAccount" target="_blank">
-              <span>善良酱</span>
+              <span>{{articles.accountUps[index].userName}}</span>
             </router-link>
             <span>
-              <Icon type="md-eye" />浏览量: 112
+              <Icon type="md-eye" />浏览量: {{article.readers}}
             </span>
             <div class="author_signature">
               <span>
-                    乐途，搜狐，QQ公众号，企鹅号，头条等平台自媒体。
+                    {{articles.accountUps[index].description}}
               </span>
             </div>
 
@@ -26,49 +26,11 @@
 
         </div>
         <div class="blog">
-          <a class="place" href="#">皇帝岛</a>
+          <a class="place" href="#">{{article.spotName}}</a>
           <div class="blog_cover">
-            <router-link to="/account">
-              <img src="http://img1.lotour.net/Inspiration/2018/0831/20180831174017564538425_910_500.jpg" alt="">
-              <p class="title">潜水，人生中值得去挑战一次。不为征服，只为挑战，不为逞能，只为突破。</p>
-            </router-link>
-
-          </div>
-
-        </div>
-      </div>
-    </Card>
-    <Card class="card">
-      <div class="cardContent">
-        <div class="blogAuthor">
-          <div>
             <a href="javascript:void(0)">
-              <img class="author-avatar" alt=""
-                   src="http://img1.lotour.net/Inspiration/2016/0412/20160412112439027165115_310.jpg  "/>
-            </a>
-          </div>
-          <div class="author-name">
-            <a href="javascript:void(0)">
-              <span>老黄带你去旅游</span>
-            </a>
-            <span>
-              <Icon type="md-eye" />浏览量: 112
-            </span>
-            <div class="author_signature">
-              <span>
-                    乐途，搜狐，QQ公众号，企鹅号，头条等平台自媒体。
-              </span>
-            </div>
-
-          </div>
-
-        </div>
-        <div class="blog">
-          <a class="place" href="#">考山路</a>
-          <div class="blog_cover">
-            <a href="">
-              <img src="http://img1.lotour.net/Inspiration/2018/0831/20180831170954341346926_910_500.jpg" alt="">
-              <p class="title">考山路的国际夜生活，全球背包客聚集地，</p>
+              <img :src="article.coverPath" alt="">
+              <p class="title">{{article.title}}</p>
             </a>
 
           </div>
@@ -76,13 +38,61 @@
         </div>
       </div>
     </Card>
+    <div class="eception" v-if="articles.articles.length === 0">
+      这人很懒，还没写啥博客....
+    </div>
+    <!--<Card class="card">-->
+      <!--<div class="cardContent">-->
+        <!--<div class="blogAuthor">-->
+          <!--<div>-->
+            <!--<a href="javascript:void(0)">-->
+              <!--<img class="author-avatar" alt=""-->
+                   <!--src="http://img1.lotour.net/Inspiration/2016/0412/20160412112439027165115_310.jpg  "/>-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="author-name">-->
+            <!--<a href="javascript:void(0)">-->
+              <!--<span>老黄带你去旅游</span>-->
+            <!--</a>-->
+            <!--<span>-->
+              <!--<Icon type="md-eye" />浏览量: 112-->
+            <!--</span>-->
+            <!--<div class="author_signature">-->
+              <!--<span>-->
+                    <!--乐途，搜狐，QQ公众号，企鹅号，头条等平台自媒体。-->
+              <!--</span>-->
+            <!--</div>-->
+
+          <!--</div>-->
+
+        <!--</div>-->
+        <!--<div class="blog">-->
+          <!--<a class="place" href="#">考山路</a>-->
+          <!--<div class="blog_cover">-->
+            <!--<a href="">-->
+              <!--<img src="http://img1.lotour.net/Inspiration/2018/0831/20180831170954341346926_910_500.jpg" alt="">-->
+              <!--<p class="title">考山路的国际夜生活，全球背包客聚集地，</p>-->
+            <!--</a>-->
+
+          <!--</div>-->
+
+        <!--</div>-->
+      <!--</div>-->
+    <!--</Card>-->
   </div>
 
 </template>
 
 <script>
   export default {
-    name: 'blogCard'
+    name: 'blogCard',
+    props: ['articles'],
+    methods:{
+
+    },
+    created(){
+
+    }
   }
 </script>
 
@@ -167,6 +177,8 @@
     height: 100%;
     width: 100%;
     border-radius: 5px;
+    object-fit: cover;
+    object-position: top;
   }
   .blog p.title
   {
@@ -195,6 +207,12 @@
   .blog>a.place:hover
   {
     color: #f74133;
+  }
+  .eception{
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 120px;
   }
 
 </style>

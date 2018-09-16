@@ -106,6 +106,10 @@
             </li>
           </ul>
         </div>
+        <div class="launch">
+
+          <router-link to="/travel/launchTravel"> <Button type="success" long>发起拼途</Button></router-link>
+        </div>
       </div>
     </Card>
     </Col>
@@ -121,8 +125,8 @@
 <style scoped>
   .choice-card-group {
     position: fixed;
-    top: 80px;
-    left: 1200px;
+    top: 10%;
+    left: 70%;
   }
 
   .card {

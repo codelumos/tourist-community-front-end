@@ -20,6 +20,7 @@ import otherAccount from '../components/account/otherAccount';
 import travel from '../components/mate/mate';
 import travelList from '../components/mate/subcom/travelList';
 import travelInfo from '../components/mate/subcom/travelInfo';
+import launchTravel from '../components/mate/subcom/launchCard';
 
 Vue.use(Router);
 
@@ -91,6 +92,11 @@ export default new Router({
           path: 'travelInfo',
           name: 'travelInfo',
           component: travelInfo
+        },
+        {
+          path: 'launchTravel',
+          name: 'launchTravel',
+          component: launchTravel
         }
       ]
     }

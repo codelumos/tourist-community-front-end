@@ -21,6 +21,7 @@
         <div class="card-bottom">
           <div class="topic-list-subtitle clearfix">
             <a>#09-29北京出发#</a>
+            <a>8人团</a>
             <a>摄影</a>
             <a>自驾</a>
             <a>随性</a>

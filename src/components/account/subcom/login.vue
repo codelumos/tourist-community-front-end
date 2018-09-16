@@ -49,7 +49,11 @@
 
             if (data.status === 0) {
 
-              that.$store.commit(INITACCOUNT, data.message[0]);
+              that.$store.commit(INITACCOUNT, data.message);
+              that.$Message.success({
+                content: "登录成功！",
+                duration: 5
+              })
               that.$router.push({path: '/index'});
             } else if (data.status === 1) {
               that.$Message.warning({

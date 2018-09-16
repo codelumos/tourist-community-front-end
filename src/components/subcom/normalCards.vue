@@ -29,7 +29,7 @@
 
       </li>
       <li>
-        <router-link class="card" to="/travel">
+        <router-link class="card" to="/travel/travelList">
           <img src="http://img1.lotour.net/Inspiration/2018/0830/20180830105205655530151_295.jpg" alt="">
           <em>
                 <span>
@@ -56,7 +56,7 @@
 
       </li>
       <li>
-        <a class="card" href="javascript:void(0)">
+        <router-link class="card" to="/blogList">
           <img src="http://img1.lotour.net/Inspiration/2018/0829/20180829101927383361207_295.jpg" alt="">
           <em>
                 <span>
@@ -65,7 +65,7 @@
                   那一晚宁静灯火
                 </span>
           </em>
-        </a>
+        </router-link>
         <h5>
           <a href="">
             路过济南那一晚宁静灯火
