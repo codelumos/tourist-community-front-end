@@ -18,9 +18,9 @@
             <li>
               <router-link to="/index">首页</router-link>
             </li>
-            <li><a href="javascript:void(0)" @click="toBlog()" to="/editor">写博客</a></li>
+            <li><a href="javascript:void(0)" @click="toBlog()" >写博客</a></li>
             <li>
-              <a href="javascript:void(0)" @click="toTravel()" to="/travel/travelList">拼途</a>
+              <a href="javascript:void(0)" @click="toTravel()" >拼途</a>
             </li>
             <li v-if="accountInfo">
               <a href="javascript:void(0)" @click="flag = true">注销</a>
@@ -80,7 +80,7 @@
       },
       toTravel() {
         if (this.$store.state.account.accountInfo) {
-          this.$router.push({path: '/travel/travelList'})
+          this.$router.push({path: '/travel/travelList/0'})
         } else {
           this.$Message.warning({
             content: "请先登录",

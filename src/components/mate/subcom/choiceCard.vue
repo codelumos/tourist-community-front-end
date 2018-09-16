@@ -5,13 +5,13 @@
       <div class="card-context">
         <div class="card-title">
           <h2>拼途查询</h2>
-          <a class="mine" href="" title="我的">我的</a>
+          <router-link class="mine" v-bind="{to:'/travel/travelList/'+this.$store.state.account.accountInfo.userId}" title="我的">我的</router-link>
         </div>
         <Divider/>
         <div class="time-choice">
           <h3>出发日期</h3>
           <ul>
-            <li><router-link class="link-on" to="/travel/travelList">全部</router-link></li>
+            <li><router-link class="link-on" to="/travel/travelList/0">全部</router-link></li>
             <li><a href="" title="驴友9月结伴旅行">9月</a></li>
             <li><a href="" title="驴友中秋节结伴旅行">中秋节</a></li>
             <li><a href="" title="驴友10月结伴旅行">10月</a></li>
@@ -24,7 +24,7 @@
         <div class="place-choice">
           <h3>目的地</h3>
           <ul>
-            <li><a class="link-on">全部</a></li>
+            <li><router-link class="link-on" to="/travel/travelList/0">全部</router-link></li>
             <li><a href="" title="丽江驴友网">丽江</a></li>
             <li><a href="" title="拉萨驴友网">拉萨</a></li>
             <li><a href="" title="西藏驴友网">西藏</a></li>
@@ -54,7 +54,7 @@
           <h3>主题玩法</h3>
           <ul>
             <li>
-              <a class="link-on">全部</a>
+              <router-link class="link-on" to="/travel/travelList/0">全部</router-link>
             </li>
             <li>
               <a href="" title="驴友自驾结伴旅行">自驾</a>

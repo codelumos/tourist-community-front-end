@@ -38,47 +38,9 @@
         </div>
       </div>
     </Card>
-    <div class="eception" v-if="articles.articles.length === 0">
+    <div class="eception" v-if="articles.length === 0">
       这人很懒，还没写啥博客....
     </div>
-    <!--<Card class="card">-->
-      <!--<div class="cardContent">-->
-        <!--<div class="blogAuthor">-->
-          <!--<div>-->
-            <!--<a href="javascript:void(0)">-->
-              <!--<img class="author-avatar" alt=""-->
-                   <!--src="http://img1.lotour.net/Inspiration/2016/0412/20160412112439027165115_310.jpg  "/>-->
-            <!--</a>-->
-          <!--</div>-->
-          <!--<div class="author-name">-->
-            <!--<a href="javascript:void(0)">-->
-              <!--<span>老黄带你去旅游</span>-->
-            <!--</a>-->
-            <!--<span>-->
-              <!--<Icon type="md-eye" />浏览量: 112-->
-            <!--</span>-->
-            <!--<div class="author_signature">-->
-              <!--<span>-->
-                    <!--乐途，搜狐，QQ公众号，企鹅号，头条等平台自媒体。-->
-              <!--</span>-->
-            <!--</div>-->
-
-          <!--</div>-->
-
-        <!--</div>-->
-        <!--<div class="blog">-->
-          <!--<a class="place" href="#">考山路</a>-->
-          <!--<div class="blog_cover">-->
-            <!--<a href="">-->
-              <!--<img src="http://img1.lotour.net/Inspiration/2018/0831/20180831170954341346926_910_500.jpg" alt="">-->
-              <!--<p class="title">考山路的国际夜生活，全球背包客聚集地，</p>-->
-            <!--</a>-->
-
-          <!--</div>-->
-
-        <!--</div>-->
-      <!--</div>-->
-    <!--</Card>-->
   </div>
 
 </template>

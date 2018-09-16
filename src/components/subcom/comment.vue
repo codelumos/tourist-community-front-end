@@ -3,62 +3,136 @@
     <div id="postcomment">
       <h4>提交评论</h4>
       <p></p>
-      <Input type="textarea" :rows="4" placeholder="请输入您要评论的内容"/>
-      <Button type="default" long>发表</Button>
+      <Input type="textarea" v-model="myReply[0].contentEx" :rows="4" placeholder="请输入您要评论的内容"/>
+      <Button type="default" long @click="publish()">发表</Button>
     </div>
     <div id="getcomment">
       <h4>评论列表</h4>
       <p></p>
-      <div class="comment">
+      <div class="comment" v-for="(comment,index) in comments">
         <div class="title">
           <Divider>
-            <span>1楼: </span>
-            <span><img src="../../../static/img/黑子.jpg" alt=""></span>
-            <span>一把健:</span>
+            <span>{{index+1}}楼: </span>
+            <span><img :src="comment.imagePath" alt=""></span>
+            <span>{{comment.userName}}:</span>
           </Divider>
 
         </div>
         <div class="content">
           <div>
-            <p>
-              我去！我不去！
+            <p v-text="comment.contentEx">
+
             </p>
           </div>
 
         </div>
         <div class="foot">
-          <span>2020-10-1</span>
+          <span>{{date(comment.time)}}</span>
         </div>
       </div>
-      <div class="comment">
-        <div class="title">
-          <Divider>
-            <span>2楼: </span>
-            <span><img src="../../../static/img/黑子.jpg" alt=""></span>
-            <span>一把健:</span>
-          </Divider>
-        </div>
-        <div class="content">
-          <div>
-            <p>
-              好像很厉害的样子
-            </p>
 
-          </div>
-        </div>
-        <div class="foot">
-          <span>2020-10-1</span>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import Moment from 'moment';
+  import common from '../../common/common';
+
+  import $ from 'jquery';
+
   export default {
     name: "comment",
+    props: ['id'],
     data() {
-      return {};
+      return {
+        comments: [],
+        myReply: [
+          {
+            appointmentId: this.id,
+            authorId: this.$store.state.account.accountInfo.userId,
+            imagePath: this.$store.state.account.accountInfo.imagePath,
+            userName: this.$store.state.account.accountInfo.userName,
+            contentEx: '',
+            replyId: 0,
+            time: '',
+          }
+        ]
+
+
+      };
+    },
+    methods:{
+      initComment(){
+
+        var url = common.apidomain + "/appointments?appointmentId=" + this.id;
+        var that = this;
+        this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if (data.status === 0) {
+            that.comments = data.message.appointmentReplyUps;
+
+          } else {
+            that.$Message.success({
+              content: data.message,
+              duration: 5
+            });
+          }
+        });
+      },
+      publish(){
+
+        if(this.myReply[0].contentEx.trim().length > 0){
+          var url = common.apidomain + "/appointmentReplies";
+          var that = this;
+          this.myReply[0].time = new Date();
+
+          this.$http.post(url,this.myReply[0]).then(function (response) {
+            var data = response.data;
+
+            if(data.status === 0){
+              // 将最新的评论数据追加到评论列表的最顶部
+              that.myReply[0].replyId = data.message.replyId;
+              var comment = $.extend(true, [], that.myReply);
+              that.comments = comment.concat(that.comments);
+
+              // 将文本框中的评论内容清空
+              that.myReply[0].contentEx = "";
+
+              that.$Message.success({
+                content: "评论成功",
+                duration: 5
+              });
+            }else{
+              that.$Message.warning({
+                content: data.message,
+                duration: 5
+              });
+            }
+          }).catch(function (error) {
+            that.$Message.warning({
+              content: error,
+              duration: 5
+            });
+          });
+        }else{
+          this.$Message.success({
+            content: "请输入评论",
+            duration: 5
+          });
+        }
+
+      }
+    },
+    created(){
+      this.initComment();
+    },
+    computed:{
+      date() {
+        return function (input) {
+          return Moment(Date.parse(input)).format("YYYY-MM-DD");
+        }
+      },
     }
   }
 </script>

@@ -44,7 +44,7 @@
         if(this.account.userId.trim().length * this.account.password.trim().length > 0){
           var that = this;
           var url = common.apidomain + "/accounts/login";
-          this.$http.post(url,{userId: this.account.userId,password: this.account.password}).then(function (response) {
+          this.$http.post(url,this.account).then(function (response) {
             var data = response.data;
 
             if (data.status === 0) {

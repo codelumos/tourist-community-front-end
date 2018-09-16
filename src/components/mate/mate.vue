@@ -10,12 +10,10 @@
     <br>
 
     <Row>
-      <router-view ></router-view>
-
-      <choiceCard></choiceCard>
+      <router-view></router-view>
     </Row>
 
-    <!--<test></test>-->
+
     <backTop></backTop>
     <!--S：页脚部分-->
     <footNav></footNav>
@@ -27,7 +25,7 @@
   import headNav from '../subcom/headNav-white.vue';
   import footNav from '../subcom/footNav-white';
   import backTop from '../subcom/backTop';
-  import choiceCard from './subcom/choiceCard'
+
   import test from './test';
 
   export default {
@@ -38,7 +36,6 @@
     components: {
       headNav,
       footNav,
-      choiceCard,
       backTop,
       test
     }

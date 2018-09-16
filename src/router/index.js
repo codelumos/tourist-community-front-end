@@ -84,7 +84,7 @@ export default new Router({
       component: travel,
       children:[
         {
-          path: 'travelList',
+          path: 'travelList/:id',
           name: 'travelList',
           component: travelList
         },

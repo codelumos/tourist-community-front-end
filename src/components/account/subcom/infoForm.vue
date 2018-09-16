@@ -100,7 +100,15 @@
           </Row>
         </div>
       </TabPane>
-
+      <TabPane label="拼途" name="travel">
+        <div class="account-travel">
+          <Row>
+            <Col span="16" offset="4">
+              <travelCard :travelList="travelList"></travelCard>
+            </Col>
+          </Row>
+        </div>
+      </TabPane>
     </Tabs>
   </div>
 </template>
@@ -109,6 +117,7 @@
   import blogCard from '../../blog/subcom/blogCard';
   import upload from '../subcom/upload';
   import Moment from 'moment';
+  import travelCard from '../../mate/subcom/travelCard2';
 
   import {mapState, mapMutations} from 'vuex';
   import {INITACCOUNT} from "../../../store/mutations/mutation-types";
@@ -123,7 +132,8 @@
         address: [],
         hometown: [],
         tag: '',
-        articles: []
+        articles: [],
+        travelList: []
       }
     },
     methods: {
@@ -141,12 +151,47 @@
         });
 
       },
+      initArticles(){
+        var that = this;
+        var url = common.apidomain + "/articlesByAuthor?authorId=" + this.account.userId;
+        this.$http.get(url).then(function (response) {
+
+          var data = response.data;
+          if(data.status === 0){
+            that.articles = data.message;
+
+          }else{
+            that.$Message.warning({
+              content: data.message,
+              duration: 5
+            });
+
+          }
+        });
+      },
+      initTravel(){
+        var that = this;
+        var url = common.apidomain + "/appointmentsByAuthor?authorId=" + this.account.userId;
+        this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if(data.status === 0){
+
+            that.travelList = data.message;
+          }else{
+            that.$Message.success({
+              content: data.message,
+              duration: 5
+            });
+          }
+        })
+
+      },
       submit() {
         // 向数据库中存入该信息
         var that = this;
         var url = common.apidomain + "/accounts";
-        console.log(this.account);
-        this.$http.put(url, {accountUp: this.account}).then(function (response) {
+
+        this.$http.put(url, this.account).then(function (response) {
 
           var data = response.data;
           if (data.status === 0) {
@@ -157,7 +202,7 @@
               duration: 5
             });
           } else {
-            console.log(data.message)
+
             that.$Message.success({
               content: data.message,
               duration: 5
@@ -186,24 +231,7 @@
           this.account.tag1 = "";
         }
       },
-      initArticles(){
-        var that = this;
-        var url = common.apidomain + "/articlesByAuthor?authorId=" + this.account.userId;
-        this.$http.get(url).then(function (response) {
 
-          var data = response.data;
-          if(data.status === 0){
-            that.articles = data.message;
-
-          }else{
-            that.$Message.warning({
-              content: data.message,
-              duration: 5
-            });
-
-          }
-        });
-      }
     },
     created() {
       // 用户个人信息 填充
@@ -213,6 +241,9 @@
 
       // 用户博客信息 填充
       this.initArticles();
+
+      // 用户拼途信息 填充
+      this.initTravel();
 
     },
     computed: {
@@ -235,7 +266,8 @@
     },
     components: {
       upload,
-      blogCard
+      blogCard,
+      travelCard
     }
   }
 </script>

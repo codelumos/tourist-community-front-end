@@ -84,7 +84,7 @@
       },
       toTravel(){
         if(this.$store.state.account.accountInfo){
-          this.$router.push({path: '/travel/travelList'})
+          this.$router.push({path: '/travel/travelList/0'})
         }else{
           this.$Message.warning({
             content: "请先登录",

@@ -1,46 +1,50 @@
 <template>
   <div class="travelInfo">
 
-    <Card style="width: 100%;margin-bottom: 20px">
+    <Card style="width: 100%;margin-bottom: 20px" v-for="(travel,index) in travelList.appointments"
+          :key="travel.appointmentId">
       <div class="card-content">
-      <Collapse accordion simple>
-        <Panel hide-arrow name="1">
-          <div slot="" class="collapse-head">
-            <div class="card-head">
+        <Collapse accordion simple>
+            <Panel hide-arrow name="1">
+            <div slot="" class="collapse-head">
+              <div class="card-head">
 
             <span class="card-author">
-              <img src="https://dev-file.iviewui.com/userinfoUgdSyCi1athTzPW4JyvsAKrUdPRxrj8i/avatar" alt="">
+              <img :src="travelList.accountUps[index].imagePath" alt="">
             </span>
 
-              <h3>
-                <label>国庆北京-西安-成都 自驾</label>
-              </h3>
-            </div>
-            <div class="card-body">
-              <div class="topic-list-content">
-                <p>听了《成都》，就一直也想去成都的街头走一走，这次终于有时间，来一场成都的旅行。第一站：西安。看一看西安壮观的兵马俑，吃一吃西安的小吃。停留一天。第二站：直奔成都。要在成都住上几天，去锦里吃遍成都的美食</p>
+                <h3>
+                  <label>{{travel.lp}}-{{travel.sp}}-{{travel.spotName}} {{travel.tag1}}</label>
+                </h3>
+              </div>
+              <div class="card-body">
+                <div class="topic-list-content">
+                  <p v-text="travel.contentEx">
 
+                  </p>
+
+                </div>
+              </div>
+              <div class="card-bottom">
+                <div class="topic-list-subtitle clearfix">
+                  <a>#{{travelDate(travel.time)}} 出发#</a>
+                  <a>{{travel.sum}}人团</a>
+                  <a>{{travel.tag1}}</a>
+                  <a>{{travel.tag2}}</a>
+                  <a>{{travel.tag3}}</a>
+                </div>
               </div>
             </div>
-            <div class="card-bottom">
-              <div class="topic-list-subtitle clearfix">
-                <a>#09-29北京出发#</a>
-                <a>摄影</a>
-                <a>自驾</a>
-                <a>随性</a>
-              </div>
+
+            <div class="card-hidden" slot="content">
+
+              <img :src="travel.imagePath" alt="">
+
+              <Divider/>
+              <comment :id="travel.appointmentId"></comment>
             </div>
-          </div>
-
-          <div class="card-hidden" slot="content">
-
-            <img src="../../../../static/img/travelInfo.jpg" alt="">
-
-            <Divider/>
-            <comment></comment>
-          </div>
-        </Panel>
-      </Collapse>
+          </Panel>
+        </Collapse>
       </div>
     </Card>
   </div>
@@ -48,35 +52,55 @@
 
 <script>
   import comment from '../../subcom/comment';
+  import Moment from 'moment';
 
   export default {
     name: "travel-info",
-    components:{
+    props: ['travelList'],
+    data() {
+      return {
+
+      }
+    },
+    methods: {
+
+    },
+    computed: {
+      travelDate() {
+        return function (input) {
+          return Moment(Date.parse(input)).format("YYYY-MM-DD");
+        }
+      },
+    },
+    components: {
       comment
     }
   }
 </script>
 
 <style scoped>
-  .card-head{
+  .card-head {
     width: 100%;
   }
-  .card-head h3{
+
+  .card-head h3 {
     display: inline-block;
     vertical-align: top;
     /*float: left;*/
   }
-  .card-content{
+
+  .card-content {
     padding: 16px;
   }
 
-  .card-author{
+  .card-author {
     display: inline-block;
     width: 24px;
     height: 24px;
     margin-right: 12px;
   }
-  .card-author img{
+
+  .card-author img {
     width: 24px;
     height: 24px;
     border-radius: 100%;
@@ -89,11 +113,13 @@
     background: 0;
     width: 523px;
   }
+
   a {
     color: #17233d;
     text-decoration: none
   }
-  a:hover{
+
+  a:hover {
     color: #2d8cf0
   }
 
@@ -122,7 +148,8 @@
     color: #666;
     margin: 0
   }
-  .card-hidden img{
+
+  .card-hidden img {
     margin-top: 10px;
     width: 100%;
     border-radius: 5px;

@@ -5,7 +5,7 @@
       <span>驴友，请注册</span>
       <input type="text" class="form-input" name="username" placeholder="账号" v-model="account.userId">
       <input type="password" class="form-input" name="password" placeholder="密码" v-model="account.password">
-      <input type="password" class="form-input" name="password" placeholder="记住密码" v-model="repeatPassword">
+      <input type="password" class="form-input" name="password" placeholder="重复密码" v-model="repeatPassword">
       <div class="form-button">
         <input type="submit" class="form-submit">
         <router-link to="/accountForm/login" class="form-return"><span>进行登录</span></router-link>
@@ -29,7 +29,7 @@
       };
     },
     methods: {
-      register() {
+      async register() {
         if(this.account.userId.trim().length * this.account.password.trim().length === 0){
           this.$Message.warning({
             content: "账号或者密码不能为空!",
@@ -39,14 +39,16 @@
           var that = this;
           if (this.account.password === this.repeatPassword) {
             // 判断用户是否存在
-            if (this.isExist()) {
+
+            if (await this.isExist()) {
               this.$Message.warning({
                 content: "该用户已存在！",
                 duration: 5
               });
             } else {
               var url = common.apidomain + "/accounts";
-              this.$http.post(url,{account: this.account,accountInfo: null}).then(function (response) {
+
+              this.$http.post(url,this.account).then(function (response) {
                 var data = response.data;
                 if (data.status === 0) {
                   that.$Message.success({
@@ -88,6 +90,7 @@
           if (data.status === 1) {
             return true;
           } else {
+
             return false;
           }
         })
