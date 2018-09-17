@@ -59,7 +59,7 @@ export default new Router({
       component: editor
     },
     {
-      path: '/blog',
+      path: '/blog/:id',
       name :'blog',
       component: blog
     },
@@ -74,7 +74,7 @@ export default new Router({
       component: account
     },
     {
-      path: '/otherAccount',
+      path: '/otherAccount/:id',
       name: 'otherAccount',
       component: otherAccount
     },
@@ -84,7 +84,7 @@ export default new Router({
       component: travel,
       children:[
         {
-          path: 'travelList/:id',
+          path: 'travelList',
           name: 'travelList',
           component: travelList
         },

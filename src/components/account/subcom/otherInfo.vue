@@ -1,48 +1,43 @@
 <template>
   <div class="form">
-    <Tabs value="info" >
+    <Tabs value="info">
       <TabPane label="用户信息" name="info">
         <div class="account-info">
           <Row class="account-group">
             <Col span="1" offset="6">
-            <label>用户名：</label>
+              <label>用户名：</label>
             </Col>
             <Col span="4">
-            <label>善良酱</label>
+              <label v-text="account.userName"></label>
             </Col>
             <Col span="1" offset="3">
-            <label>性别：</label>
+              <label>性别：</label>
             </Col>
             <Col span="4">
-            <label>女</label>
+              <label v-text="account.sex='m'?'男':'女'"></label>
             </Col>
           </Row>
           <Row class="account-group">
             <Col span="1" offset="6">
-            <label>博客数：</label>
+              <label>家乡：</label>
             </Col>
             <Col span="4">
-            <label>2</label>
-            </Col>
-            <Col span="1" offset="3">
-            <label>家乡：</label>
-            </Col>
-            <Col span="4">
-            <label>湖南省>长沙市</label>
-            </Col>
-          </Row>
-          <Row class="account-group">
-            <Col span="1" offset="6">
-            <label>标签：</label>
-            </Col>
-            <Col span="4">
-            <label>
-              <Tag color="default">冒险</Tag>
-              <Tag color="default">骑行</Tag>
-              <Tag color="default">小动物</Tag>
-            </label>
-            </Col>
+              <Cascader :data="address" v-model="account.home" disabled></Cascader>
 
+            </Col>
+            <Col span="1" offset="3">
+              <label>标签：</label>
+            </Col>
+            <Col span="4">
+              <label>
+                <Tag v-if="account.tag1" :key="1" :name="account.tag1">{{ account.tag1 }}
+                </Tag>
+                <Tag v-if="account.tag2" :key="2" :name="account.tag2">{{ account.tag2 }}
+                </Tag>
+                <Tag v-if="account.tag3" :key="3" :name="account.tag3">{{ account.tag3 }}
+                </Tag>
+              </label>
+            </Col>
           </Row>
         </div>
       </TabPane>
@@ -50,13 +45,20 @@
         <div class="account-blog">
           <Row>
             <Col span="18" offset="3">
-            <blogCard></blogCard>
-
+              <blogCard :articles="articles"></blogCard>
             </Col>
           </Row>
         </div>
       </TabPane>
-
+      <TabPane label="拼途" name="travel">
+        <div class="account-travel">
+          <Row>
+            <Col span="16" offset="4">
+              <travelCard :travelList="travelList"></travelCard>
+            </Col>
+          </Row>
+        </div>
+      </TabPane>
     </Tabs>
   </div>
 </template>
@@ -64,44 +66,99 @@
 <script>
   import blogCard from '../../blog/subcom/blogCard';
   import upload from '../subcom/upload';
+  import travelCard from '../../mate/subcom/travelCard2';
+
+  import common from '../../../common/common';
 
   export default {
     name: "infoForm",
-    data(){
+    data() {
       return {
         address: [],
-        account:{
-          name: '一把健',
-          id:'',
-          password: '123456',
-          avatar: '',
-          sex: '男',
-          birthday: '1998年5月7',
-          home: [],
-          live: []
-        }
+        articles: [],
+        travelList: [],
+        addressText:''
       }
     },
-    components:{
+    props: ['account'],
+    methods: {
+
+      initAddress() {
+        var that = this;
+        var url = '../../../static/data/address.json';
+
+        this.$http.get(url).then(function (response) {
+          that.address = response.data;
+        }).catch(function (error) {
+          that.$Message.warning(error);
+        });
+
+      },
+      initArticles() {
+        var that = this;
+        var url = common.apidomain + "/articlesByAuthor?authorId=" + this.account.userId;
+        this.$http.get(url).then(function (response) {
+
+          var data = response.data;
+          if (data.status === 0) {
+            that.articles = data.message;
+          } else {
+            that.$Message.warning({
+              content: data.message,
+              duration: 5
+            });
+          }
+        });
+      },
+      initTravel() {
+        var that = this;
+        var url = common.apidomain + "/appointmentsByAuthor?authorId=" + this.account.userId;
+        this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if (data.status === 0) {
+            that.travelList = data.message;
+          } else {
+            that.$Message.warning({
+              content: data.message,
+              duration: 5
+            });
+          }
+        })
+      },
+
+    },
+    created() {
+
+      // 用户个人信息 填充
+      this.initAddress();
+
+      // 用户博客信息 填充
+      this.initArticles();
+
+      // 用户拼途信息 填充
+      this.initTravel();
+
+    },
+    components: {
       upload,
-      blogCard
+      blogCard,
+      travelCard
     }
   }
 </script>
 
 <style scoped>
-  .account-info
-  {
+  .account-info {
     padding: 50px;
   }
-  .account-info label
-  {
-    vertical-align:middle;
-    display:inline-block;
+
+  .account-info label {
+    vertical-align: middle;
+    display: inline-block;
     font: normal 16px/28px \5FAE\8F6F\96C5\9ED1, "Microsoft YaHei";
   }
-  .account-group
-  {
+
+  .account-group {
     margin-bottom: 20px;
   }
 </style>

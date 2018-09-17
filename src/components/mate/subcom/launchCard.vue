@@ -31,21 +31,21 @@
             <Row>
               <Col span="8">
               <AutoComplete
-                v-model="address.lp"
+                v-model="appointment.lp"
                 :data="address.lpArr"
                 @on-search="searchLp"
                 placeholder="大地点（国内：省份；国外：国家）"></AutoComplete>
               </Col>
               <Col span="6" offset="2">
               <AutoComplete
-                v-model="address.sp"
+                v-model="appointment.sp"
                 :data="address.spArr"
                 @on-search="searchSp"
                 placeholder="小地点（市区）"></AutoComplete>
               </Col>
               <Col span="6" offset="2">
               <AutoComplete
-                v-model="address.spot"
+                v-model="appointment.spotName"
                 :data="address.spotArr"
                 @on-search="searchSpot"
                 placeholder="景点"></AutoComplete>
@@ -53,7 +53,7 @@
             </Row>
           </FormItem>
           <FormItem label="内容">
-            <Input v-model="appointment.content" type="textarea" :autosize="{minRows: 2,maxRows: 4}"
+            <Input v-model="appointment.contentEx" type="textarea" :autosize="{minRows: 2,maxRows: 4}"
                    placeholder="输入简短的拼途内容，让人一眼认定你"/>
           </FormItem>
           <FormItem
@@ -101,6 +101,8 @@
 </template>
 
 <script>
+  import common from '../../../common/common';
+
   import $ from 'jquery';
 
   export default {
@@ -108,13 +110,20 @@
     data() {
       return {
         appointment: {
-          title: '',
-          sum: '',
-          time: '',
-          content: '',
+          appointmentId: 0,
+          authorId: this.$store.state.account.accountInfo.userId,
+          contentEx: '',
+          imagePath: '',
+          lp: '',
+          sp: '',
+          spotName: '',
           tag1: '',
           tag2: '',
-          tag3: ''
+          tag3: '',
+          sum: '',
+          title: '',
+          time: '',
+
         },
         index: 1,
         tags: [
@@ -131,9 +140,6 @@
           }
         },
         address: {
-          lp: "",
-          sp: "",
-          spot: "",
           lpArr: [],
           spArr: [],
           spotArr: []
@@ -161,6 +167,25 @@
           default:
             break;
         }
+
+        var that = this;
+        var url = common.apidomain + "/appointments";
+        this.$http.post(url,this.appointment).then(function (response) {
+          var data = response.data;
+          if(data.status === 0){
+            that.$Message.warning({
+              content: "发布成功",
+              duration: 5
+            });
+            that.$router.push({path: '/travel/travelList'});
+          }else{
+            that.$Message.warning({
+              content: data.message,
+              duration: 5
+            });
+          }
+        })
+
       },
       addTag() {
         if (this.index >= 2) {

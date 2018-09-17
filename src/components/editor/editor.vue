@@ -26,7 +26,10 @@
         <Col span="2" offset="1">
         <Input placeholder="小地点" />
         </Col>
-        <Col span="4" offset="1">
+        <Col span="1" offset="1">
+        <label>景点：</label>
+        </Col>
+        <Col span="2">
         <Input placeholder="景点" />
         </Col>
       </Row>

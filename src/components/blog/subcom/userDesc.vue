@@ -6,9 +6,9 @@
         <a title="" target="_blank" href="#">
           <div class="author-title">
             <img class="author-avatar" height="60" width="60" alt=""
-                 src="http://img1.lotour.net/inspiration/2017/0103/2017010323403404744278_86.jpg"/>
+                 :src="author.imagePath"/>
           </div>
-          <span><router-link to="/otherAccount" target="_blank" title="">南麂土著</router-link></span>
+          <span><router-link v-bind="{to:'/otherAccount/'+author.userId}" target="_blank" title="">{{author.userName}}</router-link></span>
           <div class="read">
             <img src="http://img1.lotour.net/inspiration/dingyue/dy+.png" class="dy_pic"/><i class="dy">订阅</i>
           </div>
@@ -16,7 +16,7 @@
 
       </div>
       <div class="writer-signature">
-        <p>把旅行当做修炼，将发现视为起点，山水做画框，故事来润色，每一段旅行，都想站成一道风景，每一次经历，都想写成传奇。</p>
+        <p v-text="author.description"></p>
       </div>
 
       <a href="http://zhuanlan.lotour.com/163/" class="arrow"></a>
@@ -29,8 +29,35 @@
 </template>
 
 <script>
+  import common from '../../../common/common';
+
   export default {
-    name: "userDesc"
+    name: "userDesc",
+    props:['id'],
+    data(){
+      return {
+        author: {}
+      };
+    },
+    methods:{
+      initAuthor(){
+
+        var url  = common.apidomain + "/accounts?userId=" + this.id;
+        var that = this;
+        this.$http.get(url).then(function (response) {
+            var data = response.data;
+            if(data.status === 1){
+              that.author = data.message;
+
+            }
+        })
+      }
+    },
+    created(){
+
+      this.initAuthor();
+
+    }
   }
 </script>
 

@@ -1,11 +1,11 @@
 <template>
       <div class="board">
-          <img class="background" src="http://img1.lotour.net/Inspiration/2018/0826/20180826104627552461257_1920.jpg">
-          <h1>世界上最浪漫的梯田，专供沐浴不耕作</h1>
+          <img class="background" :src="blog.coverPath">
+          <h1>{{blog.title}}</h1>
           <div class="article-des">
-            <span><Icon type="ios-pin" />北京.奥伦达部落</span>
-            <span><Icon type="ios-heart" />&nbsp;17&nbsp;</span>
-            <span><Icon type="md-eye" />&nbsp;288</span>
+            <span><Icon type="ios-pin" />{{blog.sp}}.{{blog.spotName}}</span>
+            <span><Icon type="ios-heart" />&nbsp;{{blog.likes}}&nbsp;</span>
+            <span><Icon type="md-eye" />&nbsp;{{blog.readers}}</span>
           </div>
       </div>
 </template>
@@ -14,9 +14,8 @@
 
     export default {
         name: "board",
-        mounted(){
+        props: ['blog']
 
-        }
     }
 </script>
 

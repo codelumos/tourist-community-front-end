@@ -4,17 +4,17 @@
     <headNav></headNav>
     <div class="account-background">
       <div class="account-avatar">
-        <img src="http://img1.lotour.net/Inspiration/2015/1204/20151204213355229789732_310.jpg " alt="头像">
+        <img :src="account.imagePath" alt="头像">
       </div>
       <div class="account-name">
-        <input type="text" maxlength="20" value="善良酱" readonly>
+        <input type="text" v-model="account.userName" maxlength="20">
         <div>
           <Icon type="md-happy" />
-          <span>乐途，搜狐，QQ公众号，企鹅号，头条等平台自媒体。</span>
+          <span>账号:{{account.userId}}</span>
         </div>
       </div>
     </div>
-    <otherInfo></otherInfo>
+    <otherInfo v-if="account.userId" :account="account"></otherInfo>
     <footNav></footNav>
     <backTop></backTop>
 
@@ -27,33 +27,37 @@
   import backTop from '../subcom/backTop';
   import otherInfo from './subcom/otherInfo';
 
+  import common from '../../common/common';
+
   export default {
     name: "account",
     data () {
       return {
+        id: 0,
+        account: {}
         }
 
     },
+
     methods:{
-      initAddress(){
+      async initAccount(){
+        var url = common.apidomain + "/accounts?userId=" + this.id;
+        var that = this;
+        await this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if(data.status === 1){
+            that.account = data.message;
 
-        var url = '../../../static/data/address.json';
-
-        this.$http.get(url).then(function (response) {
-          alert(response.data);
-          this.address = response.data;
-        }).catch(function (response) {
-          alert(response);
+          }
         });
-
-        console.log(this.address);
       }
 
     },
     created(){
       // 将用户信息查出
+      this.id = this.$route.params.id;
+      this.initAccount();
 
-      // this.initAddress();
     },
     components: {
       headNav,
@@ -78,8 +82,7 @@
     width: 180px;
     height: 180px;
     border-radius: 100%;
-    margin: 80px auto;
-    margin-bottom: 10px;
+    margin: 80px auto 10px;
   }
   .account-name>input{
     display: block;

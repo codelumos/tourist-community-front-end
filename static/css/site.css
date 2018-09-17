@@ -35,3 +35,12 @@ ul li
 {
   border: none;
 }
+
+/*重写 级联选择器的 disbaled 样式*/
+.ivu-cascader-disabled .ivu-input{
+  background: #fff;
+  border: none;
+  cursor: context-menu;
+  font: normal 15px/28px \5FAE\8F6F\96C5\9ED1, "Microsoft YaHei";
+  color: #2a2a2a;
+}

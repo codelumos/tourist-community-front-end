@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-component">
+  <div class="comment-component" v-if="accountInfo">
     <div id="postcomment">
       <h4>提交评论</h4>
       <p></p>
@@ -41,6 +41,8 @@
 
   import $ from 'jquery';
 
+  import {mapState} from 'vuex'
+
   export default {
     name: "comment",
     props: ['id'],
@@ -50,9 +52,9 @@
         myReply: [
           {
             appointmentId: this.id,
-            authorId: this.$store.state.account.accountInfo.userId,
-            imagePath: this.$store.state.account.accountInfo.imagePath,
-            userName: this.$store.state.account.accountInfo.userName,
+            authorId: '',
+            imagePath: '',
+            userName: '',
             contentEx: '',
             replyId: 0,
             time: '',
@@ -73,7 +75,7 @@
             that.comments = data.message.appointmentReplyUps;
 
           } else {
-            that.$Message.success({
+            that.$Message.warning({
               content: data.message,
               duration: 5
             });
@@ -125,7 +127,14 @@
       }
     },
     created(){
-      this.initComment();
+      // 防止未登录导致的null异常
+      if(this.accountInfo){
+        this.myReply.authorId = this.accountInfo.userId;
+        this.myReply.imagePath = this.accountInfo.imagePath;
+        this.myReply.userName = this.accountInfo.userName;
+        this.initComment();
+      }
+
     },
     computed:{
       date() {
@@ -133,6 +142,11 @@
           return Moment(Date.parse(input)).format("YYYY-MM-DD");
         }
       },
+      ...mapState({
+        accountInfo: state => {
+          return state.account.accountInfo;
+        }
+      })
     }
   }
 </script>

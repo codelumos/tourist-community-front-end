@@ -13,6 +13,9 @@
       <hr/>
       <br/>
       <travelCard :travelList="travelList"></travelCard>
+      <div v-if="travelList.length === 0" class="none">
+        啥拼途都找不到了...
+      </div>
 
       </Col>
 
@@ -23,23 +26,22 @@
           <div class="card-context">
             <div class="card-title">
               <h2>拼途查询</h2>
-              <router-link class="mine" v-bind="{to:'/travel/travelList/'+this.$store.state.account.accountInfo.userId}"
-                           title="我的">我的
-              </router-link>
+              <a class="mine" title="我的" @click="initTravelList(accountInfo.userId)">我的
+              </a>
             </div>
             <Divider/>
             <div class="time-choice">
               <h3>出发日期</h3>
               <ul>
                 <li>
-                  <router-link class="link-on" to="/travel/travelList/0">全部</router-link>
+                  <a class="link-on" href="javascript:void(0)" @click="initTravelList(0)">全部</a>
                 </li>
-                <li><a href="" title="驴友9月结伴旅行">9月</a></li>
-                <li><a href="" title="驴友中秋节结伴旅行">中秋节</a></li>
-                <li><a href="" title="驴友10月结伴旅行">10月</a></li>
-                <li><a href="" title="驴友国庆节结伴旅行">国庆节</a></li>
-                <li><a href="" title="驴友11月结伴旅行">11月</a></li>
-                <li><a href="" title="驴友12月结伴旅行">12月</a></li>
+                <li><a href="javascript:void(0)" title="驴友9月结伴旅行">9月</a></li>
+                <li><a href="javascript:void(0)" title="驴友中秋节结伴旅行">中秋节</a></li>
+                <li><a href="javascript:void(0)" title="驴友10月结伴旅行">10月</a></li>
+                <li><a href="javascript:void(0)" title="驴友国庆节结伴旅行">国庆节</a></li>
+                <li><a href="javascript:void(0)" title="驴友11月结伴旅行">11月</a></li>
+                <li><a href="javascript:void(0)" title="驴友12月结伴旅行">12月</a></li>
               </ul>
             </div>
             <Divider/>
@@ -47,7 +49,7 @@
               <h3>目的地</h3>
               <ul>
                 <li>
-                  <router-link class="link-on" to="/travel/travelList/0">全部</router-link>
+                  <a class="link-on" href="javascript:void(0)" @click="initTravelList(0)">全部</a>
                 </li>
                 <li><a href="" title="丽江驴友网">丽江</a></li>
                 <li><a href="" title="拉萨驴友网">拉萨</a></li>
@@ -78,7 +80,7 @@
               <h3>主题玩法</h3>
               <ul>
                 <li>
-                  <router-link class="link-on" to="/travel/travelList/0">全部</router-link>
+                  <a class="link-on" href="javascript:void(0)" @click="initTravelList(0)">全部</a>
                 </li>
                 <li>
                   <a href="" title="驴友自驾结伴旅行">自驾</a>
@@ -151,6 +153,8 @@
   import choiceCard from './choiceCard';
   import common from '../../../common/common';
 
+  import {mapState} from 'vuex';
+
   export default {
     name: "travel-list",
     data() {
@@ -161,9 +165,9 @@
       }
     },
     methods: {
-      initTravelList() {
+      initTravelList(id) {
         var that = this;
-        var url = common.apidomain + "/appointmentsByAuthor?authorId=" + this.id;
+        var url = common.apidomain + "/appointmentsByAuthor?authorId=" + id;
         this.$http.get(url).then(function (response) {
           var data = response.data;
           if (data.status === 0) {
@@ -202,29 +206,35 @@
       }
     },
     created() {
+      this.initTravelList(0);
 
-      // 获取传入的 id
-      this.id = this.$route.params.id;
-      console.log(this.id)
-      this.initTravelList();
-
+    },
+    computed:{
+      ...mapState({
+        accountInfo: state => {
+          return state.account.accountInfo;
+        }
+      }),
     },
     components: {
       travelCard,
       choiceCard
     },
-    // 实现路由锚点相同但是锚点参数不同的跳转
-    beforeRouteUpdate(to, from, next) {
-
-      next();
-      this.id = this.$route.params.id;
-      this.initTravelList();
-
-    }
+    // // 实现路由锚点相同但是锚点参数不同的跳转
+    // beforeRouteUpdate(to, from, next) {
+    //
+    //   next();
+    //   this.id = this.$route.params.id;
+    //   this.initTravelList();
+    //
+    // }
   }
 </script>
 
 <style scoped>
+  .context{
+    min-height: 500px;
+  }
   .choice-card-group {
     position: fixed;
     top: 10%;

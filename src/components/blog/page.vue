@@ -6,18 +6,18 @@
     <!--E: 顶部导航栏组件-->
 
     <!--S 大图组件-->
-    <board></board>
+    <board v-if="blog.article" :blog="blog.article"></board>
     <!--E 大图组件-->
 
     <!--S: 主体部分-->
     <Row class="context">
       <Col span="4" offset="2">
-      <user-desc></user-desc>
+        <user-desc v-if="authorId" :id="authorId"></user-desc>
       </Col>
 
       <Col span="13" offset="7">
-      <blog></blog>
-      <comment></comment>
+        <blog :blog="blog.article"></blog>
+      <!--<comment></comment>-->
       </Col>
     </Row>
     <!--E: 主体部分-->
@@ -42,10 +42,37 @@
   import backTop from '../subcom/backTop';
   import comment from '../subcom/comment';
 
+  import common from '../../common/common';
+
   export default {
     name: 'index',
     data() {
-      return {}
+      return {
+        id: 0,
+        authorId: '',
+        blog: {}
+      };
+    },
+    methods:{
+      async initBlog(){
+        var url = common.apidomain + "/articles?articleId=" + this.id;
+        var that = this;
+        await this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if(data.status === 0){
+            that.blog = data.message;
+            that.authorId = that.blog.article.authorId;
+
+          }
+        });
+
+      }
+    },
+    created(){
+      this.id = this.$route.params.id;
+
+      this.initBlog();
+
     },
     components: {
       headNav,
