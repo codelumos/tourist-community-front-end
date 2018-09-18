@@ -1,6 +1,5 @@
 <template>
   <div class="launchCard">
-    <Col span="14" offset="2">
     <div>
       <h2 style="float: left">发起拼途</h2>
     </div>
@@ -17,7 +16,7 @@
           <FormItem label="人数限制">
             <Row>
               <Col span="11">
-              <Input placeholder="输入本团人数上限" v-model="appointment.sum" number/>
+              <InputNumber v-model="appointment.sum" style="width: 100%"></InputNumber>
               </Col>
               <Col span="2" style="text-align: center">
               截止日期：</Col>
@@ -83,7 +82,8 @@
               type="drag"
               :format="['jpg','jpeg','png']"
               :on-format-error="handleFormatError"
-              action="//jsonplaceholder.typicode.com/posts/">
+              action="http://localhost:8088/travelbyex/v1/images"
+              :on-success="getImage">
               <div style="padding: 20px 0">
                 <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
                 <p>上传图片让你的拼途更丰富多彩</p>
@@ -96,7 +96,6 @@
         <Button type="primary" long @click="launch()">发表</Button>
       </div>
     </Card>
-    </Col>
   </div>
 </template>
 
@@ -120,7 +119,7 @@
           tag1: '',
           tag2: '',
           tag3: '',
-          sum: '',
+          sum: 0,
           title: '',
           time: '',
 
@@ -173,7 +172,7 @@
         this.$http.post(url,this.appointment).then(function (response) {
           var data = response.data;
           if(data.status === 0){
-            that.$Message.warning({
+            that.$Message.success({
               content: "发布成功",
               duration: 5
             });
@@ -212,6 +211,17 @@
         });
       },
       searchLp(value){
+        var url = common.apidomain + "/largePlacesByName?lpName=" + value;
+        var that = this;
+        this.$http.get(url).then(function (response) {
+            var data = response.data;
+            if(data.status === 0){
+              that.address.lpArr = data.message;
+            }else{
+
+            }
+        })
+
         this.address.lpArr = !value ? [] : [
           value,
           value + value,
@@ -231,6 +241,12 @@
           value + value,
           value + value + value
         ];
+      },
+      getImage(response, file, fileList){
+        if(response.status === 0){
+          this.appointment.imagePath = response.message;
+        }
+
       }
     }
   }

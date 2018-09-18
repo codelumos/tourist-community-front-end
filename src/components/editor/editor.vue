@@ -6,31 +6,36 @@
     <!--E: 顶部导航栏组件-->
 
     <div class='tinymce'>
-      <h1>Blog:{{manuscript.title}}</h1>
-      <br>
-      <Input placeholder="请输入标题" v-model="manuscript.title" style="width: 100%"/>
-      <br><br>
+      <div class="desc">
+        <h1>跟随兴趣去旅行，全年随时出发</h1>
+        <p>记录你旅游的点点滴滴</p>
+      </div>
+      <br/><br/><br/>
+      <Row class="account-group">
+        <label>日志标题：</label><label class="center">{{manuscript.title}}</label>
+        <Input placeholder="请输入标题" v-model="manuscript.title" style="width: 100%"/>
+      </Row>
       <Row class="account-group">
         <Col span="1">
-        <label>时间：</label>
+          <label>时间：</label>
         </Col>
         <Col span="4">
-        <Input type="date" placeholder="时间" v-model="manuscript.time"/>
+          <Input type="date" placeholder="时间" v-model="manuscript.time"/>
         </Col>
         <Col span="1" offset="3">
-        <label>地点：</label>
+          <label>地点：</label>
         </Col>
         <Col span="2">
-        <Input placeholder="大地点" />
+          <Input placeholder="大地点"/>
         </Col>
         <Col span="2" offset="1">
-        <Input placeholder="小地点" />
+          <Input placeholder="小地点"/>
         </Col>
-        <Col span="1" offset="1">
-        <label>景点：</label>
+        <Col span="1" offset="3">
+          <label>景点：</label>
         </Col>
-        <Col span="2">
-        <Input placeholder="景点" />
+        <Col span="4">
+          <Input placeholder="景点"/>
         </Col>
       </Row>
 
@@ -52,7 +57,7 @@
     <footNav></footNav>
     <!--E：页脚部分-->
 
-    <Modal
+    <Modal>
       v-model="flag"
       title="通知"
       @on-ok="ok"
@@ -73,7 +78,9 @@
   import tinymce from 'tinymce/tinymce'
   import editor from '@tinymce/tinymce-vue';
   import 'tinymce/themes/modern/theme'
+  import 'tinymce/plugins/autoresize'
   import 'tinymce/plugins/image'
+  import 'tinymce/plugins/imagetools'
   import 'tinymce/plugins/link'
   import 'tinymce/plugins/code'
   import 'tinymce/plugins/table'
@@ -94,11 +101,35 @@
           language_url: '/static/components/tinymce/zh_CN.js',
           language: 'zh_CN',
           skin_url: '/static/components/tinymce/skins/lightgray',
-          height: 400,
-          plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
+          autoresize_min_height: 400,
+          plugins: 'autoresize link lists image imagetools code table colorpicker textcolor wordcount contextmenu',
           toolbar:
             'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
-          branding: false
+          branding: false,
+          images_upload_handler: function (blobInfo, success, failure) {
+            var xhr, formData;
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', 'postAcceptor.php');
+            xhr.onload = function() {
+              var json;
+
+              if (xhr.status != 200) {
+                failure('HTTP Error: ' + xhr.status);
+                return;
+              }
+              json = JSON.parse(xhr.responseText);
+
+              if (!json || typeof json.location != 'string') {
+                failure('Invalid JSON: ' + xhr.responseText);
+                return;
+              }
+              success(json.location);
+            };
+            formData = new FormData();
+            formData.append('file', blobInfo.blob(), fileName(blobInfo));
+            xhr.send(formData);
+          }
         },
         buttonSize: 'large',
         address: [],
@@ -163,6 +194,7 @@
   .tmpl {
     width: 100%;
     overflow: hidden;
+    background-color: #f8f8f9;
   }
 
   .tinymce {
@@ -181,6 +213,23 @@
   .account-group label {
     font-size: 15px;
     line-height: 35px;
+  }
+
+  .desc {
+    text-align: center;
+    margin-top: 80px;
+  }
+
+  .desc > p {
+    margin-top: 20px;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .center{
+    font-size:  20px;
+    font-weight: bold;
+
   }
 
 </style>

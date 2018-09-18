@@ -1,5 +1,5 @@
 <template>
-  <div class="travelInfo">
+  <div class="travelInfo" v-if="travelList">
 
     <Card style="width: 100%;margin-bottom: 20px" v-for="(travel,index) in travelList.appointments"
           :key="travel.appointmentId">
@@ -76,7 +76,7 @@
       comment
     }
   }
-</script>
+  </script>
 
 <style scoped>
   .card-head {

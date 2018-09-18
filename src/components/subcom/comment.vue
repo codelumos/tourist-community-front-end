@@ -87,8 +87,12 @@
         if(this.myReply[0].contentEx.trim().length > 0){
           var url = common.apidomain + "/appointmentReplies";
           var that = this;
-          this.myReply[0].time = new Date();
 
+          // 初始化评论者的值
+          this.myReply[0].time = new Date();
+          this.myReply[0].authorId = this.accountInfo.userId;
+          this.myReply[0].imagePath = this.accountInfo.imagePath;
+          this.myReply[0].userName = this.accountInfo.userName;
           this.$http.post(url,this.myReply[0]).then(function (response) {
             var data = response.data;
 

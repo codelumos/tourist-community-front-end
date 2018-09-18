@@ -76,7 +76,7 @@
             <label>头像：</label>
             </Col>
             <Col span="4">
-            <upload></upload>
+              <upload @getImage="getImage" :initImage="account.imagePath"></upload>
             </Col>
 
           </Row>
@@ -231,7 +231,9 @@
           this.account.tag1 = "";
         }
       },
-
+      getImage(image){
+          this.account.imagePath = image;
+      }
     },
     created() {
       // 用户个人信息 填充

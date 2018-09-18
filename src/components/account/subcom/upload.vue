@@ -24,25 +24,26 @@
      :before-upload="handleBeforeUpload"
      multiple
      type="drag"
-     action="//jsonplaceholder.typicode.com/posts/"
+     action="http://localhost:8088/travelbyex/v1/images"
      style="display: inline-block;width:58px;">
      <div style="width: 58px;height:58px;line-height: 58px;">
        <Icon type="ios-camera" size="20"></Icon>
      </div>
    </Upload>
    <Modal title="View Image" v-model="visible">
-     <img :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'" v-if="visible" style="width: 100%">
+     <img :src="initImage" v-if="visible" style="width: 100%">
    </Modal>
  </div>
 </template>
 <script>
   export default {
+
     data () {
       return {
         defaultList: [
           {
-            'name': '黑子.jpg',
-            'url': '../../../../static/img/黑子.jpg'
+            'name': '用户头像.jpg',
+            'url': this.initImage
           }
         ],
         imgName: '',
@@ -50,6 +51,7 @@
         uploadList: []
       }
     },
+    props: ['initImage'],
     methods: {
       handleView (name) {
         this.imgName = name;
@@ -60,27 +62,36 @@
         this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
       },
       handleSuccess (res, file) {
-        console.log(res,file)
-        file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
-        file.name = '7eb99afb9d5f317c912f08b5212fd69a';
+
+        if(res.status === 0){
+          const fileList = this.$refs.upload.fileList;
+          this.$refs.upload.fileList.splice(0, fileList.length);
+          this.uploadList.push({
+            'status': 'finished',
+            'name': file.name,
+            'url': res.message
+          });
+          this.$emit("getImage",this.uploadList[0].url)
+        }
+
       },
       handleFormatError (file) {
         this.$Notice.warning({
-          title: 'The file format is incorrect',
-          desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+          title: '文件格式不正确',
+          desc: '文件：' + file.name + ' 的文件格式不正确，请上传jpg,jpeg或png'
         });
       },
       handleMaxSize (file) {
         this.$Notice.warning({
-          title: 'Exceeding file size limit',
-          desc: 'File  ' + file.name + ' is too large, no more than 2M.'
+          title: '文件大小限制',
+          desc: '文件：' + file.name + '太大，最大2M'
         });
       },
       handleBeforeUpload () {
         const check = this.uploadList.length < 2;
         if (!check) {
           this.$Notice.warning({
-            title: 'Up to five pictures can be uploaded.'
+            title: '至多上传一个图片作为头像'
           });
         }
         return check;
