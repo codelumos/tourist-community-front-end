@@ -38,9 +38,7 @@
         </div>
       </div>
     </Card>
-    <div class="eception" v-if="articles.length === 0">
-      这人很懒，还没写啥博客....
-    </div>
+
   </div>
 
 </template>
@@ -125,7 +123,7 @@
     height: 450px;
     border-radius: 5px;
     display: inline-block;
-    width: 100px;
+    width: 60%;
     margin-left: 60px;
   }
   .blog_cover
@@ -170,11 +168,6 @@
   {
     color: #f74133;
   }
-  .eception{
-    font-size: 30px;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 120px;
-  }
+
 
 </style>

@@ -12,6 +12,7 @@
     <Row>
       <Col span="14" offset="2">
         <router-view :travelList="travelList"></router-view>
+
       </Col>
 
       <Col span="6">
@@ -223,10 +224,12 @@
         var that = this;
         var url = common.apidomain + "/appointmentsByTag?tag=" + tag;
         this.$http.get(url).then(function (response) {
+
           var data = response.data;
           if (data.status === 0) {
 
             that.travelList = data.message;
+
             if(that.$route.path === '/travel/launchTravel'){
               that.$router.push({path: '/travel/travelList'})
             }
@@ -307,5 +310,6 @@
     display: block;
     margin-top: 10px;
   }
+
 
 </style>

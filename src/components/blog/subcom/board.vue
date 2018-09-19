@@ -1,12 +1,16 @@
 <template>
       <div class="board">
-          <img class="background" :src="blog.coverPath">
+        <a v-bind="{href: 'http://www.google.cn/maps/place/' + blog.sp}" target="_blank">
+          <img v-if="blog" class="background" :src="blog.coverPath">
+          <img v-else class="background" src="http://img1.lotour.net/Inspiration/2018/0824/20180824213618709837790_680.jpg">
+        </a>
           <h1>{{blog.title}}</h1>
           <div class="article-des">
             <span><Icon type="ios-pin" />{{blog.sp}}.{{blog.spotName}}</span>
             <span><Icon type="ios-heart" />&nbsp;{{blog.likes}}&nbsp;</span>
             <span><Icon type="md-eye" />&nbsp;{{blog.readers}}</span>
           </div>
+
       </div>
 </template>
 

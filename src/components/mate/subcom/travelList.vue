@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="travelList.appointments">
     <!--S: 主体部分-->
 
     <div class="context">
@@ -13,10 +13,9 @@
       <hr/>
       <br/>
       <travelCard :travelList="travelList"></travelCard>
-      <div v-if="!travelList" class="none">
+      <div v-if="travelList.appointments.length === 0" class="none">
         啥拼途都找不到了...
       </div>
-
     </div>
     <!--E: 主体部分-->
   </div>

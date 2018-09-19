@@ -21,6 +21,7 @@
       for(var i = 0;i < imgArr.length;i++){
         if(imgArr[i].alt.length != 0 && imgArr[i].alt.indexOf("http://") >= 0){
           imgArr[i].src = imgArr[i].alt;
+
         }
 
       }
@@ -36,12 +37,12 @@
     min-height: 600px;
   }
 
-  img {
+  .blog-text >>> img {
     width: 100%;
     border-radius: 4px;
   }
 
-  p {
+  .blog-text >>> p {
     margin: 20px 0 0;
     font: normal 16px/28px \5FAE\8F6F\96C5\9ED1, "Microsoft YaHei";
     color: #333;
@@ -49,7 +50,7 @@
   }
 
   /*图片描述语言*/
-  p.img-tip {
+  .blog-text >>> p.img-tip {
     position: relative;
     font-size: 14px;
     font-style: italic;
@@ -59,7 +60,7 @@
     text-align: left;
   }
 
-  h2 {
+  .blog-text >>> h2 {
     margin: 35px 0 18px;
     padding-left: 12px;
     background: url(http://img1.lotour.net/i-article/txt-tit.png) no-repeat 0 center;

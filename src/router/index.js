@@ -63,7 +63,7 @@ export default new Router({
       component: blog
     },
     {
-      path: '/blogList',
+      path: '/blogList/:keyword',
       name: 'blogList',
       component: blogList
     },

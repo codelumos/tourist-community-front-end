@@ -1,53 +1,56 @@
 <template>
   <div class="bigCards">
     <ul>
-      <li>
-        <a href="">
-          <img src="http://img1.lotour.net/Inspiration/2016/0612/20160612120804837751324_600.jpg" alt="">
+      <li v-for="item in content">
+        <router-link :to="item.url">
+          <img :src="item.cover" alt="">
           <em>
             <span>
-              全世界最梦幻的
+              {{item.cover_title1}}
               <br>
-              白沙滩
+              {{item.cover_title2}}
             </span>
           </em>
-        </a>
+        </router-link>
         <h5>
-          <a href="">
-            在长滩岛感受梦幻的白沙滩
-          </a>
+          <router-link :to="item.url">
+            {{item.title}}
+          </router-link>
         </h5>
         <div class="big-bottom">
-          途牛旅行社-推文
+          {{item.author}}
         </div>
       </li>
-      <li>
-        <a href="">
-          <img src="http://img1.lotour.net/Inspiration/2016/0612/20160612120804837751324_600.jpg" alt="">
-          <em>
-            <span>
-              全世界最梦幻的
-              <br>
-              白沙滩
-            </span>
-          </em>
-        </a>
-        <h5>
-          <a href="">
-            在长滩岛感受梦幻的白沙滩
-          </a>
-        </h5>
-        <div class="big-bottom">
-          途牛旅行社-推文
-        </div>
-      </li>
+
     </ul>
   </div>
 </template>
 
 <script>
     export default {
-        name: "big-cards"
+        name: "big-cards",
+      data(){
+          return {
+            content: [
+              {
+                title: '在长滩岛感受梦幻的白沙滩',
+                cover_title1: '全世界最梦幻的',
+                cover_title2: '白沙滩',
+                author: '途牛旅行社-推文',
+                cover: 'http://img1.lotour.net/Inspiration/2016/0612/20160612120804837751324_600.jpg',
+                url: '/blog/31'
+              },
+              {
+                title: '石梯坪，北回海岸线，遥望大海的另一边',
+                cover_title1: '北回海岸线',
+                cover_title2: '大海另一边',
+                author: '途牛旅行社-推文',
+                cover: 'http://img1.lotour.net/Inspiration/2018/0916/20180916225137640598247_600.jpg',
+                url: '/blog/32'
+              }
+            ],
+          };
+      }
     }
 </script>
 

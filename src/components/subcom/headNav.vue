@@ -109,7 +109,7 @@
 
   nav {
     height: 50px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.2);
     z-index: 3;
     position: relative;
     top: 0;

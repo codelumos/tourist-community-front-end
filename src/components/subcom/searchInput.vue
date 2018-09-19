@@ -9,10 +9,12 @@
         <div class="demo-auto-complete-group">
           <span>{{ item.title }}</span>
         </div>
-        <Option v-for="option in item.children" :value="option.title" :key="option.title">
-          <a class="demo-auto-complete-title" href="#">{{ option.title }}</a>
-          <!--<span class="demo-auto-complete-count">{{ option.count }} 人关注</span>-->
+        <router-link  v-for="option in item.children" class="demo-auto-complete-title" v-bind="{to: '/blogList/'+option.title}" :key="option.title">
+          <Option :value="option.title" :key="option.title">
+          {{ option.title }}
         </Option>
+        </router-link>
+
       </div>
       <div class="searchButton">
         <a href="javascript:void(0)" class="demo-auto-complete-more" @click="search()">搜索</a>
@@ -31,14 +33,11 @@
             title: '热门景点',
             children: [
               {
-                title: '橘子洲',
-                count: 10000,
+                title: '橘子洲'
 
               },
               {
-                title: '玻璃栈道',
-                count: 10600,
-
+                title: '玻璃栈道'
               }
             ]
           },
@@ -46,14 +45,10 @@
             title: '热门主题',
             children: [
               {
-                title: '骑行',
-                count: 60100,
-
+                title: '骑行'
               },
               {
-                title: '自驾游',
-                count: 30010,
-
+                title: '自驾游'
               }
             ]
           },
@@ -61,9 +56,7 @@
             title: '旅游时间',
             children: [
               {
-                title: '国庆节',
-                count: 100000,
-
+                title: '国庆节'
               }
             ]
           }
@@ -72,9 +65,17 @@
     },
     methods:{
       search(){
-        this.$router.push({
-          path:"/blogList"
-        });
+        if(this.value.trim().length === 0){
+          this.$Message.warning({
+            content: "请输入或选择关键词",
+            duration: 5
+          })
+        }else{
+          this.$router.push({
+            path:"/blogList/" + this.value
+          });
+        }
+
       }
     }
   }

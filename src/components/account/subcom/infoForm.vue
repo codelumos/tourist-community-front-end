@@ -95,7 +95,11 @@
         <div class="account-blog">
           <Row>
             <Col span="18" offset="3">
-              <blogCard :articles="articles"></blogCard>
+
+              <div class="eception" v-if="articles.articles.length === 0" >
+              这里还没有博客....
+              </div>
+              <blogCard v-else :articles="articles"></blogCard>
             </Col>
           </Row>
         </div>
@@ -104,7 +108,11 @@
         <div class="account-travel">
           <Row>
             <Col span="16" offset="4">
-              <travelCard :travelList="travelList"></travelCard>
+
+              <div v-if="travelList.appointments.length === 0" class="none">
+               啥拼途都找不到了....
+              </div>
+              <travelCard v-else :travelList="travelList"></travelCard>
             </Col>
           </Row>
         </div>
@@ -177,6 +185,7 @@
           if(data.status === 0){
 
             that.travelList = data.message;
+
           }else{
             that.$Message.success({
               content: data.message,
@@ -213,14 +222,22 @@
 
       },
       handleAdd() {
-        if (this.account.tag1.length === 0) {
-          this.account.tag1 = this.tag;
-        } else if (this.account.tag2.length === 0) {
-          this.account.tag2 = this.tag;
-        } else {
-          this.account.tag3 = this.tag;
+        if(this.tag.trim().length === 0){
+          this.$Message.warning({
+            content: '请输入标签内容',
+            duration: 5
+          });
+        }else{
+          if (this.account.tag1.trim().length === 0) {
+            this.account.tag1 = this.tag;
+          } else if (this.account.tag2.trim().length === 0) {
+            this.account.tag2 = this.tag;
+          } else {
+            this.account.tag3 = this.tag;
+          }
+          this.tag = "";
         }
-        this.tag = "";
+
       },
       handleClose(event, name) {
         if (this.account.tag3) {
@@ -236,6 +253,7 @@
       }
     },
     created() {
+
       // 用户个人信息 填充
       this.account = Object.assign({}, this.accountInfo);
       this.$emit('account',this.account);
@@ -291,6 +309,19 @@
 
   .tagInput {
     margin-bottom: 10px;
+  }
+
+  .eception{
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 120px;
+  }
+  .none{
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 120px;
   }
 
 </style>

@@ -32,7 +32,6 @@
           <Row>
             <Col span="22" offset="2">
               <smallCards></smallCards>
-              <smallCards></smallCards>
             </Col>
           </Row>
 
@@ -48,7 +47,7 @@
           <Row>
             <Col span="22" offset="2">
             <normalCards></normalCards>
-            <normalCards></normalCards>
+
             </Col>
           </Row>
         </div>

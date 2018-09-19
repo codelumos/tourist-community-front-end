@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import searchInput from '../subcom/searchInput';
+  import searchInput from './searchInput';
   import {mapState,mapMutations} from 'vuex'
   import {ACCOUNTLOGOUT,CANCELBLOG} from "@/store/mutations/mutation-types";
 
