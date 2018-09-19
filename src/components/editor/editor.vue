@@ -22,25 +22,40 @@
         <Col span="4">
           <Input type="date" placeholder="时间" v-model="manuscript.time"/>
         </Col>
-        <Col span="1" offset="3">
-          <label>地点：</label>
+        <Col span="2" offset="1">
+          <label>旅游地点：</label>
         </Col>
         <Col span="2">
-          <Input placeholder="大地点"/>
+        <AutoComplete
+          v-model="manuscript.lp"
+          :data="address.lpArr"
+          @on-search="searchLp"
+          placeholder="大地点"></AutoComplete>
         </Col>
-        <Col span="2" offset="1">
-          <Input placeholder="小地点"/>
+        <Col span="1">
+        &nbsp;&nbsp;_______&nbsp;&nbsp;
         </Col>
-        <Col span="1" offset="3">
+        <Col span="2">
+        <AutoComplete
+          v-model="manuscript.sp"
+          :data="address.spArr"
+          @on-search="searchSp"
+          placeholder="小地点（市区）"></AutoComplete>
+        </Col>
+        <Col span="1" offset="1">
           <label>景点：</label>
         </Col>
         <Col span="4">
-          <Input placeholder="景点"/>
+        <AutoComplete
+          v-model="manuscript.spotName"
+          :data="address.spotArr"
+          @on-search="searchSpot"
+          placeholder="景点"></AutoComplete>
         </Col>
       </Row>
 
 
-      <editor id='tinymce' v-model='manuscript.content' :init='init'></editor>
+      <editor id='tinymce' v-model='manuscript.contentEx' :init='init'></editor>
       <br>
       <Button class="button" :size="buttonSize" type="primary" @click="flag = true">发表</Button>
       <Button class="button" :size="buttonSize" type="success" @click="saveBlog()">保存</Button>
@@ -57,7 +72,7 @@
     <footNav></footNav>
     <!--E：页脚部分-->
 
-    <Modal>
+    <Modal
       v-model="flag"
       title="通知"
       @on-ok="ok"
@@ -73,6 +88,7 @@
   import headNav from '../subcom/headNav-white.vue';
   import footNav from '../subcom/footNav';
   import backTop from '../subcom/backTop';
+  import common from '../../common/common';
 
   // 富文本编辑器 tinymce
   import tinymce from 'tinymce/tinymce'
@@ -90,7 +106,7 @@
   import 'tinymce/plugins/colorpicker'
   import 'tinymce/plugins/textcolor'
 
-  import {mapMutations} from 'vuex';
+  import {mapState, mapMutations} from 'vuex'
   import {INITBLOG, CANCELBLOG} from "@/store/mutations/mutation-types";
 
   export default {
@@ -132,12 +148,26 @@
           }
         },
         buttonSize: 'large',
-        address: [],
+        address: {
+          lpArr: [],
+          spArr: [],
+          spotArr: []
+        },
         manuscript: {
+          articleId: 0,
+          authorId: '',
           title: '',
           time: '',
-          place: [],
-          content: ''
+          lp: '',
+          sp: '',
+          spotName: '',
+          contentEx: '',
+          coverPath: '',
+          likes: 0,
+          readers: 0,
+          tag1: '',
+          tag2: '',
+          tag3: ''
         },
         flag: false
       }
@@ -154,14 +184,32 @@
         this.publishBlog();
       },
       publishBlog() {
+
         // 往数据库中存入该博客
-        this.$store.commit(INITBLOG, this.manuscript);
-        this.$store.commit(CANCELBLOG);
-        this.$Message.success({
-          content: "发表成功！",
-          duration: 5
+        var url = common.apidomain + "/articles";
+        var that = this;
+        this.manuscript.authorId = this.accountInfo.userId;
+        console.log(this.accountInfo.userId)
+        console.log(this.manuscript.contentEx)
+        this.$http.post(url,this.manuscript).then(function (response) {
+          var data = response.data;
+
+          if(data.status === 0){
+
+            that.$store.commit(INITBLOG, that.manuscript);
+            that.$store.commit(CANCELBLOG);
+            that.$Message.success({
+              content: "发表成功！",
+              duration: 5
+            });
+            that.$router.push({path: '/account'});
+          }else{
+            that.$Message.warning({
+              content: data.message,
+              duration: 5
+            });
+          }
         });
-        this.$router.push({path: '/account'})
 
       },
       saveBlog() {
@@ -174,12 +222,52 @@
       cancelBlog() {
         this.$router.push({path: '/index'});
       },
+      searchLp(value) {
+        var url = common.apidomain + "/largePlacesByName?lpName=" + value;
+        var that = this;
+        this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if (data.status === 0) {
+            that.address.lpArr = !value ? [] : data.message;
+          }
+        });
+
+      },
+      searchSp(value) {
+        var url = common.apidomain + "/smallPlacesByLpNameAndSpName?lpName=" + this.manuscript.lp + "&spName=" + value;
+        var that = this;
+        this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if (data.status === 0) {
+            that.address.spArr = !value ? [] : data.message;
+          }
+        });
+      },
+      searchSpot(value) {
+        var url = common.apidomain + "/spotsBySpNameAndSpotName?spName=" + this.manuscript.sp + "&spotName=" + value;
+        var that = this;
+        this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if (data.status === 0) {
+            that.address.spotArr = !value ? [] : data.message;
+          }
+        });
+      }
     },
     created() {
+
+      // console.log(this.manuscript.authorId)
       this.initBlog();
     },
     mounted() {
       tinymce.init({})
+    },
+    computed: {
+      ...mapState({
+        accountInfo: state => {
+          return state.account.accountInfo;
+        }
+      })
     },
     components: {
       headNav,

@@ -44,3 +44,8 @@ ul li
   font: normal 15px/28px \5FAE\8F6F\96C5\9ED1, "Microsoft YaHei";
   color: #2a2a2a;
 }
+
+
+.ivu-cascader-disabled .ivu-icon-ios-arrow-down:before{
+  content: none;
+}

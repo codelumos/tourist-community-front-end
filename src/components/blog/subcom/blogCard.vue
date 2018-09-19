@@ -4,13 +4,13 @@
       <div class="cardContent">
         <div class="blogAuthor">
           <div>
-            <a href="javascript:void(0)">
+            <router-link target="_blank" v-bind="{to: '/otherAccount'+ articles.accountUps[index].userId}">
             <img class="author-avatar" alt=""
                     :src="articles.accountUps[index].imagePath"/>
-            </a>
+            </router-link>
           </div>
           <div class="author-name">
-            <router-link to="/otherAccount" target="_blank">
+            <router-link v-bind="{to: '/otherAccount'+ articles.accountUps[index].userId}" target="_blank">
               <span>{{articles.accountUps[index].userName}}</span>
             </router-link>
             <span>
@@ -26,12 +26,12 @@
 
         </div>
         <div class="blog">
-          <a class="place" href="#">{{article.spotName}}</a>
+          <router-link class="place" v-bind="{to: '/blog/'+ article.articleId}" >{{article.spotName}}</router-link>
           <div class="blog_cover">
-            <a href="javascript:void(0)">
+            <router-link v-bind="{to: '/blog/'+ article.articleId}">
               <img :src="article.coverPath" alt="">
               <p class="title">{{article.title}}</p>
-            </a>
+            </router-link>
 
           </div>
 

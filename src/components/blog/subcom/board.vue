@@ -24,11 +24,14 @@
   {
     width: 100%;
     height: 440px;
+    margin-bottom: 50px;
   }
   img
   {
-    position: relative;
-    left: -116px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
   }
   .board h1
   {

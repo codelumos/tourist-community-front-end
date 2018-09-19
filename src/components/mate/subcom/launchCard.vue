@@ -26,29 +26,34 @@
               </Col>
             </Row>
           </FormItem>
-          <FormItem label="旅游目的地">
-            <Row>
-              <Col span="8">
-              <AutoComplete
-                v-model="appointment.lp"
-                :data="address.lpArr"
-                @on-search="searchLp"
-                placeholder="大地点（国内：省份；国外：国家）"></AutoComplete>
-              </Col>
-              <Col span="6" offset="2">
-              <AutoComplete
-                v-model="appointment.sp"
-                :data="address.spArr"
-                @on-search="searchSp"
-                placeholder="小地点（市区）"></AutoComplete>
-              </Col>
-              <Col span="6" offset="2">
-              <AutoComplete
-                v-model="appointment.spotName"
-                :data="address.spotArr"
-                @on-search="searchSpot"
-                placeholder="景点"></AutoComplete>
-              </Col>
+          <FormItem label="大地点：">
+            <Col span="6">
+            <AutoComplete
+              v-model="appointment.lp"
+              :data="address.lpArr"
+              @on-search="searchLp"
+              placeholder="大地点（国内：省份；国外：国家）"></AutoComplete>
+            </Col>
+            <Col span="2" offset="1">
+            小地点：
+            </Col>
+            <Col span="6">
+            <AutoComplete
+              v-model="appointment.sp"
+              :data="address.spArr"
+              @on-search="searchSp"
+              placeholder="小地点（市区）"></AutoComplete>
+            </Col>
+            <Col span="1" offset="1">
+            景点：
+            </Col>
+            <Col span="6">
+            <AutoComplete
+              v-model="appointment.spotName"
+              :data="address.spotArr"
+              @on-search="searchSpot"
+              placeholder="景点"></AutoComplete>
+            </Col>
             </Row>
           </FormItem>
           <FormItem label="内容">
@@ -169,15 +174,15 @@
 
         var that = this;
         var url = common.apidomain + "/appointments";
-        this.$http.post(url,this.appointment).then(function (response) {
+        this.$http.post(url, this.appointment).then(function (response) {
           var data = response.data;
-          if(data.status === 0){
+          if (data.status === 0) {
             that.$Message.success({
               content: "发布成功",
               duration: 5
             });
             that.$router.push({path: '/travel/travelList'});
-          }else{
+          } else {
             that.$Message.warning({
               content: data.message,
               duration: 5
@@ -204,46 +209,45 @@
         }
         this.tags.splice(index, 1);
       },
-      handleFormatError(file){
+      handleFormatError(file) {
         this.$Notice.warning({
           title: '文件格式错误！',
           desc: '文件： ' + file.name + '的文件格式错误, 请上传jpg，png，jpeg。'
         });
       },
-      searchLp(value){
+      searchLp(value) {
         var url = common.apidomain + "/largePlacesByName?lpName=" + value;
         var that = this;
         this.$http.get(url).then(function (response) {
-            var data = response.data;
-            if(data.status === 0){
-              that.address.lpArr = data.message;
-            }else{
+          var data = response.data;
+          if (data.status === 0) {
+            that.address.lpArr = !value ? [] : data.message;
+          }
+        });
 
-            }
-        })
-
-        this.address.lpArr = !value ? [] : [
-          value,
-          value + value,
-          value + value + value
-        ];
       },
-      searchSp(value){
-        this.address.spArr = !value ? [] : [
-          value,
-          value + value,
-          value + value + value
-        ];
+      searchSp(value) {
+        var url = common.apidomain + "/smallPlacesByLpNameAndSpName?lpName=" + this.appointment.lp + "&spName=" + value;
+        var that = this;
+        this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if (data.status === 0) {
+            that.address.spArr = !value ? [] : data.message;
+          }
+        });
       },
-      searchSpot(value){
-        this.address.spotArr = !value ? [] : [
-          value,
-          value + value,
-          value + value + value
-        ];
+      searchSpot(value) {
+        var url = common.apidomain + "/spotsBySpNameAndSpotName?spName=" + this.appointment.sp + "&spotName=" + value;
+        var that = this;
+        this.$http.get(url).then(function (response) {
+          var data = response.data;
+          if (data.status === 0) {
+            that.address.spotArr = !value ? [] : data.message;
+          }
+        });
       },
-      getImage(response, file, fileList){
-        if(response.status === 0){
+      getImage(response, file, fileList) {
+        if (response.status === 0) {
           this.appointment.imagePath = response.message;
         }
 

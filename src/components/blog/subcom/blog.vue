@@ -15,7 +15,6 @@
     methods:{
 
     },
-
     mounted(){
       var imgArr = $(".blog-text img");
 

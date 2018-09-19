@@ -4,7 +4,7 @@
       <li>
         <Card :bordered="false" style="width:195px">
           <div style="text-align:center; padding: 0">
-            <router-link class="card" to="/blog/1">
+            <router-link class="card" to="/blog/26">
               <img src="http://img4.lotour.net/bcef/theme//2016/0918/201609181636059776690.jpg" alt="">
               <em>
                 <span>地质奇观</span>
