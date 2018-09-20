@@ -92,9 +92,9 @@
             title: '海坨山 | 骑行山林，总有刺',
             cover_title1:'北京城最独特',
             cover_title2:'“小众秘境”',
-            author: '小乔帮主',
-            avatar: 'http://img1.lotour.net/Inspiration/2016/1207/20161207094232337162552_86.jpg',
-            des: '时尚达人，美搭潮人，微博签约自媒体，',
+            author: '月关',
+            avatar: 'http://img1.lotour.net/Inspiration/2018/0704/20180704223131237678661_910.jpg',
+            des: '好的文章如一幅画，在画里面，你能看到',
             cover: 'http://img1.lotour.net/Inspiration/2018/0830/20180830105205655530151_295.jpg',
             url: '/blog/29'
           },
@@ -103,8 +103,8 @@
             title: '路过济南那一晚宁静灯火',
             cover_title1:'路过济南',
             cover_title2:'那一晚宁静灯火',
-            author: '寻影的人',
-            avatar: 'http://img1.lotour.net/Inspiration/2017/0617/20170617070530509376612_86.jpg',
+            author: '月关',
+            avatar: 'http://img1.lotour.net/Inspiration/2018/0704/20180704223131237678661_910.jpg',
             des: '好的文章如一幅画，在画里面，你能看到',
             cover: 'http://img1.lotour.net/Inspiration/2018/0829/20180829101927383361207_295.jpg',
             url: '/blog/30'

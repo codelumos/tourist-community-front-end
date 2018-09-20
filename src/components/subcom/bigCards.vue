@@ -36,7 +36,7 @@
                 title: '在长滩岛感受梦幻的白沙滩',
                 cover_title1: '全世界最梦幻的',
                 cover_title2: '白沙滩',
-                author: '途牛旅行社-推文',
+                author: '月关',
                 cover: 'http://img1.lotour.net/Inspiration/2016/0612/20160612120804837751324_600.jpg',
                 url: '/blog/31'
               },
@@ -44,7 +44,7 @@
                 title: '石梯坪，北回海岸线，遥望大海的另一边',
                 cover_title1: '北回海岸线',
                 cover_title2: '大海另一边',
-                author: '途牛旅行社-推文',
+                author: '月关',
                 cover: 'http://img1.lotour.net/Inspiration/2018/0916/20180916225137640598247_600.jpg',
                 url: '/blog/32'
               }
