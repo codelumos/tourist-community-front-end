@@ -43,7 +43,9 @@
     font: normal 40px/40px \5FAE\8F6F\96C5\9ED1,"Microsoft YaHei";
     color: #fff;
     position: relative;
-    width: 100%;
+    background: rgba(0,0,0,0.7);
+    width: fit-content;
+    margin: 0 auto;
 
     bottom: 185px;
   }
@@ -60,4 +62,5 @@
   {
     margin-right: 10px;
   }
+
 </style>

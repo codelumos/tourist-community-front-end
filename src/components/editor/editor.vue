@@ -53,6 +53,14 @@
             placeholder="景点"></AutoComplete>
         </Col>
       </Row>
+      <Row class="account-group">
+        <Col span="2">
+        <label>封面图：</label>
+        </Col>
+        <Col span="2">
+          <upload :initImage="manuscript.coverPath" @getImage="getImage"></upload>
+        </Col>
+      </Row>
 
       <editor id='tinymce' v-model='manuscript.contentEx' :init='init'></editor>
       <br/>
@@ -86,6 +94,7 @@
   import footNav from '../subcom/footNav';
   import backTop from '../subcom/backTop';
   import common from '../../common/common';
+  import upload from '../account/subcom/upload';
   import axios from 'axios';
 
   // 富文本编辑器 tinymce
@@ -148,7 +157,7 @@
           sp: '',
           spotName: '',
           contentEx: '',
-          coverPath: '',
+          coverPath: 'http://img1.lotour.net/Inspiration/2018/0802/20180802160830772838853_1920.jpg',
           likes: 0,
           readers: 0,
           tag1: '',
@@ -173,8 +182,7 @@
         var url = common.apidomain + "/articles";
         var that = this;
         this.manuscript.authorId = this.accountInfo.userId;
-        console.log(this.accountInfo.userId)
-        console.log(this.manuscript.contentEx)
+
         this.$http.post(url, this.manuscript).then(function (response) {
           var data = response.data;
           if (data.status === 0) {
@@ -233,6 +241,10 @@
             that.address.spotArr = !value ? [] : data.message;
           }
         });
+      },
+      getImage(image){
+        console.log(image)
+        this.manuscript.coverPath = image;
       }
     },
     created() {
@@ -252,7 +264,8 @@
       headNav,
       footNav,
       editor,
-      backTop
+      backTop,
+      upload
     }
   }
 </script>

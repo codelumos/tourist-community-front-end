@@ -9,8 +9,8 @@
         <div class="demo-auto-complete-group">
           <span>{{ item.title }}</span>
         </div>
-        <router-link  v-for="option in item.children" class="demo-auto-complete-title" v-bind="{to: '/blogList/'+option.title}" :key="option.title">
-          <Option :value="option.title" :key="option.title">
+        <router-link  v-for="option in item.children" class="demo-auto-complete-title" v-bind="{to: '/blogList/'+option.value}" :key="option.value">
+          <Option :value="option.value" >
           {{ option.title }}
         </Option>
         </router-link>
@@ -33,11 +33,12 @@
             title: '热门景点',
             children: [
               {
-                title: '橘子洲'
-
+                title: '拉萨',
+                value: '拉萨'
               },
               {
-                title: '玻璃栈道'
+                title: '巴厘岛',
+                value: '巴厘岛'
               }
             ]
           },
@@ -45,10 +46,12 @@
             title: '热门主题',
             children: [
               {
-                title: '骑行'
+                title: '休闲',
+                value: '休闲'
               },
               {
-                title: '自驾游'
+                title: '都市风情',
+                value: '都市风情'
               }
             ]
           },
@@ -56,7 +59,8 @@
             title: '旅游时间',
             children: [
               {
-                title: '国庆节'
+                title: '国庆节',
+                value:  10
               }
             ]
           }

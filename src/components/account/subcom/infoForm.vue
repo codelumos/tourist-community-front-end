@@ -60,11 +60,11 @@
             </Col>
             <Col span="4">
             <Input class="tagInput" placeholder="输入标签,最多三条" v-model="tag"/>
-            <Tag v-if="account.tag1" :key="1" :name="account.tag1" closable @on-close="handleClose">{{ account.tag1 }}
+            <Tag v-if="account.tag1" :key="1" :name="account.tag1" closable @on-close="handleClose(account.tag1)">{{ account.tag1 }}
             </Tag>
-            <Tag v-if="account.tag2" :key="2" :name="account.tag2" closable @on-close="handleClose">{{ account.tag2 }}
+            <Tag v-if="account.tag2" :key="2" :name="account.tag2" closable @on-close="handleClose(account.tag2)">{{ account.tag2 }}
             </Tag>
-            <Tag v-if="account.tag3" :key="3" :name="account.tag3" closable @on-close="handleClose">{{ account.tag3 }}
+            <Tag v-if="account.tag3" :key="3" :name="account.tag3" closable @on-close="handleClose(account.tag3)">{{ account.tag3 }}
             </Tag>
             <Button v-if="!(account.tag1 && account.tag2 && account.tag3)" icon="ios-add" type="dashed" size="small"
                     @click="handleAdd">添加标签
@@ -96,8 +96,11 @@
           <Row>
             <Col span="18" offset="3">
 
-              <div class="eception" v-if="articles.articles.length === 0" >
+              <div class="eception" v-if="articles.articles && articles.articles.length === 0" >
               这里还没有博客....
+                <div style="margin-top: 30px">
+                  <Button type="primary" size="large" @click="gotoBlog()">去写博客</Button>
+                </div>
               </div>
               <blogCard v-else :articles="articles"></blogCard>
             </Col>
@@ -109,8 +112,12 @@
           <Row>
             <Col span="16" offset="4">
 
-              <div v-if="travelList.appointments.length === 0" class="none">
+              <div v-if="travelList.appointments && travelList.appointments.length === 0" class="none">
                啥拼途都找不到了....
+                <div style="margin-top: 30px">
+                  <Button type="primary" size="large" @click="gotoTravel()">发起拼途</Button>
+                </div>
+
               </div>
               <travelCard v-else :travelList="travelList"></travelCard>
             </Col>
@@ -240,9 +247,10 @@
 
       },
       handleClose(event, name) {
-        if (this.account.tag3) {
+
+        if (this.account.tag3 === event) {
           this.account.tag3 = "";
-        } else if (this.account.tag2) {
+        } else if (this.account.tag2 === event) {
           this.account.tag2 = "";
         } else {
           this.account.tag1 = "";
@@ -250,6 +258,16 @@
       },
       getImage(image){
           this.account.imagePath = image;
+      },
+      gotoBlog(){
+        this.$router.push({
+          path: '/editor'
+        });
+      },
+      gotoTravel(){
+        this.$router.push({
+          path: '/travel/travelList'
+        });
       }
     },
     created() {

@@ -10,7 +10,8 @@
               <span>{{accountInfo.userName}}</span>
             </router-link>
             <router-link to="/index" v-else>
-              项目LOGO
+              <img src="/static/img/icon.png" alt="">
+              <span style="margin-left: 35px">一起旅游吧</span>
             </router-link>
           </div>
 
@@ -109,7 +110,7 @@
 
   nav {
     height: 50px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 3;
     position: relative;
     top: 0;
