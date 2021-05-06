@@ -10,7 +10,8 @@
               <span>{{accountInfo.userName}}</span>
             </router-link>
             <router-link to="/index" v-else>
-              项目LOGO
+              <img src="/static/img/icon.png" alt="">
+              <span style="margin-left: 35px">一起旅游吧</span>
             </router-link>
           </div>
 

@@ -1,8 +1,10 @@
 # tourist-community-front-end
 
-> A Vue.js project
+## 项目描述
 
-## Build Setup
+驴友旅游网前端
+
+## 项目构建
 
 ``` bash
 # install dependencies

@@ -135,7 +135,7 @@
           images_upload_handler: function (blobInfo, success, failure) {
             let formdata = new FormData()
             formdata.set('file', blobInfo.blob())
-            axios.post('http://localhost:8088/travelbyex/v1/images', formdata).then(res => {
+            axios.post('http://localhost:8088/travel/v1/images', formdata).then(res => {
               success(res.data.message)
             }).catch(res => {
               failure('图片上传失败')

@@ -27,33 +27,34 @@
             </Row>
           </FormItem>
           <FormItem label="大地点：">
-            <Col span="6">
-            <AutoComplete
-              v-model="appointment.lp"
-              :data="address.lpArr"
-              @on-search="searchLp"
-              placeholder="大地点（国内：省份；国外：国家）"></AutoComplete>
-            </Col>
-            <Col span="2" offset="1">
-            小地点：
-            </Col>
-            <Col span="6">
-            <AutoComplete
-              v-model="appointment.sp"
-              :data="address.spArr"
-              @on-search="searchSp"
-              placeholder="小地点（市区）"></AutoComplete>
-            </Col>
-            <Col span="1" offset="1">
-            景点：
-            </Col>
-            <Col span="6">
-            <AutoComplete
-              v-model="appointment.spotName"
-              :data="address.spotArr"
-              @on-search="searchSpot"
-              placeholder="景点"></AutoComplete>
-            </Col>
+            <Row>
+              <Col span="6">
+                <AutoComplete
+                  v-model="appointment.lp"
+                  :data="address.lpArr"
+                  @on-search="searchLp"
+                  placeholder="大地点（国内：省份；国外：国家）"></AutoComplete>
+              </Col>
+              <Col span="2" offset="1">
+                小地点：
+              </Col>
+              <Col span="6">
+                <AutoComplete
+                  v-model="appointment.sp"
+                  :data="address.spArr"
+                  @on-search="searchSp"
+                  placeholder="小地点（市区）"></AutoComplete>
+              </Col>
+              <Col span="1" offset="1">
+                景点：
+              </Col>
+              <Col span="6">
+                <AutoComplete
+                  v-model="appointment.spotName"
+                  :data="address.spotArr"
+                  @on-search="searchSpot"
+                  placeholder="景点"></AutoComplete>
+              </Col>
             </Row>
           </FormItem>
           <FormItem label="内容">
@@ -87,7 +88,7 @@
               type="drag"
               :format="['jpg','jpeg','png']"
               :on-format-error="handleFormatError"
-              action="http://localhost:8088/travelbyex/v1/images"
+              action="http://localhost:8088/travel/v1/images"
               :on-success="getImage">
               <div style="padding: 20px 0">
                 <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
@@ -105,21 +106,21 @@
 </template>
 
 <script>
-  import common from '../../../common/common';
+import common from '../../../common/common';
 
-  import $ from 'jquery';
+import $ from 'jquery';
 
-  export default {
-    name: "launch-card",
-    data() {
-      return {
-        appointment: {
-          appointmentId: 0,
-          authorId: this.$store.state.account.accountInfo.userId,
-          contentEx: '',
-          imagePath: '',
-          lp: '',
-          sp: '',
+export default {
+  name: "launch-card",
+  data() {
+    return {
+      appointment: {
+        appointmentId: 0,
+        authorId: this.$store.state.account.accountInfo.userId,
+        contentEx: '',
+        imagePath: '',
+        lp: '',
+        sp: '',
           spotName: '',
           tag1: '',
           tag2: '',
