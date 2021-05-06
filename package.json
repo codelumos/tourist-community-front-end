@@ -1,7 +1,7 @@
 {
-  "name": "travelbyex",
+  "name": "tourist-community-front-end",
   "version": "1.0.0",
-  "description": "Tourism social platform front end",
+  "description": "Tourist community front end",
   "author": "Haonan Shi <haonshi@qq.com>",
   "private": true,
   "scripts": {

@@ -1,7 +1,7 @@
 <template>
   <div class="footNav">
-    <a href="https://github.com/Excalibur-CSU"  target="_blank">
-      &copy; Excalibur-CSU
+    <a href="https://github.com/HaoNShi"  target="_blank">
+      HaoNShi
     </a>
   </div>
 </template>

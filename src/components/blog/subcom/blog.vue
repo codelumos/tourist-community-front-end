@@ -19,7 +19,7 @@
       var imgArr = $(".blog-text img");
 
       for(var i = 0;i < imgArr.length;i++){
-        if(imgArr[i].alt.length != 0 && imgArr[i].alt.indexOf("http://") >= 0){
+        if(imgArr[i].alt.length != 0 && imgArr[i].alt.indexOf("https://") >= 0){
           imgArr[i].src = imgArr[i].alt;
 
         }
@@ -63,7 +63,7 @@
   .blog-text >>> h2 {
     margin: 35px 0 18px;
     padding-left: 12px;
-    background: url(http://img1.lotour.net/i-article/txt-tit.png) no-repeat 0 center;
+    background: #1e6abc;
     font-weight: bold;
   }
 </style>

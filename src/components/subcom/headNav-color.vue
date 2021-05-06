@@ -6,8 +6,8 @@
         <nav>
           <div class="logo">
             <router-link to="/account">
-              <img src="../../../static/img/黑子.jpg" alt="">
-              <span>一把健</span>
+              <img src="../../../static/img/head.jpeg" alt="">
+              <span>用户</span>
             </router-link>
           </div>
           <ul>

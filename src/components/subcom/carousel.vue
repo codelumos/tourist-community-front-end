@@ -21,25 +21,25 @@
         content: [
           {
             id: 1,
-            img_src: 'http://img1.lotour.net/Inspiration/2018/0824/20180824213618709837790_680.jpg',
+            img_src: '\\static\\img\\title01.jpg',
             context_src: '/blog/27',
             title: '全国哪个城市比它更拽：出门坐游艇，推窗望沙漠',
           },
           {
             id: 2,
-            img_src: 'http://img1.lotour.net/Inspiration/2018/0910/2018091009492734098808_680.jpg',
+            img_src: '\\static\\img\\title02.jpg',
             context_src: '/blog/25',
             title: '泡在剑桥，看学霸们课余生活有多幸福',
           },
           {
             id: 3,
-            img_src: 'http://img1.lotour.net/Inspiration/2018/0901/20180901233346823978180_680.jpg',
+            img_src: '\\static\\img\\title03.jpg',
             context_src: '/blog/28',
             title: '如何找到20元人民币的背后图案',
           },
           {
             id: 4,
-            img_src: 'http://img1.lotour.net/Inspiration/2018/0826/20180826105055486904281_680.jpg',
+            img_src: '\\static\\img\\title04.jpg',
             context_src: '/blog/26',
             title: '一万二，来法国尝尝世界上最贵的小龙虾',
           }

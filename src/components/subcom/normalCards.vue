@@ -82,9 +82,9 @@
             cover_title1:'埃塞哈莫族',
             cover_title2:'奇葩成人礼',
             author: '友贞女',
-            avatar: 'http://img1.lotour.net/Inspiration/2016/1116/20161116170327171635670_86.jpg',
+            avatar: '\\static\\img\\head.jpeg',
             des: '《珠江商报》专栏作者、《中山日报》签',
-            cover: 'http://img1.lotour.net/Inspiration/2018/0826/20180826094029007335441_295.jpg',
+            cover: '\\static\\img\\ocean.png',
             url: ''
           },
           {
@@ -93,9 +93,9 @@
             cover_title1:'北京城最独特',
             cover_title2:'“小众秘境”',
             author: '月关',
-            avatar: 'http://img1.lotour.net/Inspiration/2018/0704/20180704223131237678661_910.jpg',
+            avatar: '\\static\\img\\head.jpeg',
             des: '好的文章如一幅画，在画里面，你能看到',
-            cover: 'http://img1.lotour.net/Inspiration/2018/0830/20180830105205655530151_295.jpg',
+            cover: '\\static\\img\\ocean.png',
             url: '/blog/29'
           },
           {
@@ -104,9 +104,9 @@
             cover_title1:'路过济南',
             cover_title2:'那一晚宁静灯火',
             author: '月关',
-            avatar: 'http://img1.lotour.net/Inspiration/2018/0704/20180704223131237678661_910.jpg',
+            avatar: '\\static\\img\\head.jpeg',
             des: '好的文章如一幅画，在画里面，你能看到',
-            cover: 'http://img1.lotour.net/Inspiration/2018/0829/20180829101927383361207_295.jpg',
+            cover: '\\static\\img\\ocean.png',
             url: '/blog/30'
           },
           {
@@ -115,9 +115,9 @@
             cover_title1:'勿忘九一八',
             cover_title2:'传承抗联精神',
             author: '尼玛次仁',
-            avatar: 'http://img1.lotour.net/Inspiration/2018/0814/20180814145520009213529_86.jpg',
+            avatar: '\\static\\img\\head.jpeg',
             des: '不惧风雨，始终面带和蔼地微笑，照亮一',
-            cover: 'http://img1.lotour.net/Inspiration/2018/0729/20180729190911252687430_295.jpg',
+            cover: '\\static\\img\\ocean.png',
             url: ''
           },
         ],
@@ -128,9 +128,9 @@
             cover_title1:'古代帝王的',
             cover_title2:'曼妙情趣',
             author: '一把健',
-            avatar: 'http://img1.lotour.net/Inspiration/2016/0725/20160725130403960192332_86.jpg',
+            avatar: '\\static\\img\\head.jpeg',
             des: '乐途专栏作者、旅游线路规划师',
-            cover: 'http://img1.lotour.net/Inspiration/2018/0917/20180917205502043691746_295.jpg',
+            cover: '\\static\\img\\ocean.png',
             url: ''
           },
           {
@@ -139,9 +139,9 @@
             cover_title1:'红梨村',
             cover_title2:'土味儿乡村行',
             author: 'strongL',
-            avatar: 'http://img1.lotour.net/Inspiration/2016/0223/20160223134512594710818_86.jpg',
+            avatar: '\\static\\img\\head.jpeg',
             des: '乐途专栏作者、旅游线路规划师',
-            cover: 'http://img1.lotour.net/Inspiration/2018/0913/20180913235026118413083_295.jpg',
+            cover: '\\static\\img\\ocean.png',
             url: ''
           },
           {
@@ -150,9 +150,9 @@
             cover_title1:'北京小众圣地',
             cover_title2:'圣莲山',
             author: '英子',
-            avatar: 'http://img1.lotour.net/Inspiration/2016/0926/20160926181150063615482_86.JPG ',
+            avatar: '\\static\\img\\head.jpeg',
             des: '喜欢旅游、喜欢将旅途上的故事通过镜头',
-            cover: 'http://img1.lotour.net/Inspiration/2018/0918/20180918100838394480397_295.jpg',
+            cover: '\\static\\img\\ocean.png',
             url: ''
           },
           {
@@ -161,9 +161,9 @@
             cover_title1:'网红仙境取景地',
             cover_title2:'恩施大峡谷',
             author: '如画心语',
-            avatar: 'http://img1.lotour.net/Inspiration/2018/0803/20180803164916099344218_86.jpg',
+            avatar: '\\static\\img\\head.jpeg',
             des: '中国艺术摄影家协会会员，自由撰稿人，',
-            cover: 'http://img1.lotour.net/Inspiration/2018/0917/20180917225257046399479_295.jpg',
+            cover: '\\static\\img\\ocean.png',
             url: ''
           }
         ]
